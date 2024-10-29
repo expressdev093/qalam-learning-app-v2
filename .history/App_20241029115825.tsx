@@ -1,12 +1,12 @@
 import {Refine} from '@refinedev/core';
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {myCustomDataProvider} from './src/providers';
-import {MainNavigation} from './src/navigations/main';
 
 export const App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView>
       <Refine
         dataProvider={myCustomDataProvider}
         //authProvider={authProvider}
@@ -23,7 +23,7 @@ export const App = () => {
             },
           },
         ]}>
-        <MainNavigation />
+        <Text>App</Text>
       </Refine>
     </SafeAreaView>
   );

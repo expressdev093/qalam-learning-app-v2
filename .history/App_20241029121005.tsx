@@ -6,7 +6,7 @@ import {MainNavigation} from './src/navigations/main';
 
 export const App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView>
       <Refine
         dataProvider={myCustomDataProvider}
         //authProvider={authProvider}
