@@ -6,7 +6,7 @@ export const App = () => {
   return (
     <SafeAreaView>
       <Text>App</Text>
-      <MaterialIcons name="home" size={28} />
+      <MaterialIcons name="home" />
     </SafeAreaView>
   );
 };
