@@ -1,8 +1,28 @@
 import {AuthProvider} from '@refinedev/core';
+import {myCustomDataProvider} from './dataprovider';
+import {IUser} from '../interfaces';
+
+interface IAuthenticate {
+  data: {
+    user: IUser;
+    accessToken: string;
+    refreshToken: string;
+  };
+}
 
 export const authProvider: AuthProvider = {
   login: async ({username, email, password}) => {
     if ((username || email) && password) {
+      console.log(email, password);
+      const {data} = await myCustomDataProvider.custom<IAuthenticate>({
+        url: myCustomDataProvider.getApiUrl() + '/auth/user-login',
+        method: 'post',
+        payload: {
+          email: email,
+          password: password,
+        },
+      });
+      console.log(data);
       return {
         success: true,
         redirectTo: '/',
