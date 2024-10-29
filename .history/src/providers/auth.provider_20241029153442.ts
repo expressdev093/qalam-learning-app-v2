@@ -60,8 +60,8 @@ export const authProvider: AuthProvider = {
   },
   forgotPassword: async ({email}: any) => {
     if (email) {
-      const {data} = await myCustomDataProvider.custom<IAuthenticate>({
-        url: myCustomDataProvider.getApiUrl() + '/auth/forgot-password',
+      const {data} = await dataProvider.custom<IAuthenticate>({
+        url: dataProvider.getApiUrl() + '/auth/forgot-password',
         method: 'post',
         payload: {
           email: email,
@@ -69,12 +69,12 @@ export const authProvider: AuthProvider = {
       });
       return {
         success: true,
-        redirectTo: RouteNames.login,
+        redirectTo: '/login',
       };
     }
     return {
       success: false,
-      redirectTo: RouteNames.login,
+      redirectTo: '/login',
       error: {
         name: 'Forgot Password Error',
         message: 'Invalid email/Email not found',

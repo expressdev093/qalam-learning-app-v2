@@ -33,10 +33,10 @@ const themedStyle = StyleService.create({
     borderRadius: 15,
   },
   input: {
-    backgroundColor: 'white',
     borderWidth: 0,
     borderRadius: 0,
     padding: 0,
+    marginLeft: -20,
   },
   danger: {
     borderWidth: 1,
@@ -47,6 +47,7 @@ const themedStyle = StyleService.create({
   },
   textStyle: {
     paddingHorizontal: 0,
-    marginLeft: -5,
+    padding: 0,
+    margin: 0,
   },
 });

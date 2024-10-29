@@ -47,6 +47,7 @@ const themedStyle = StyleService.create({
   },
   textStyle: {
     paddingHorizontal: 0,
-    marginLeft: -5,
+    padding: 0,
+    marginLeft: -8,
   },
 });

@@ -59,22 +59,10 @@ export const authProvider: AuthProvider = {
     return {error};
   },
   forgotPassword: async ({email}: any) => {
-    if (email) {
-      const {data} = await myCustomDataProvider.custom<IAuthenticate>({
-        url: myCustomDataProvider.getApiUrl() + '/auth/forgot-password',
-        method: 'post',
-        payload: {
-          email: email,
-        },
-      });
-      return {
-        success: true,
-        redirectTo: RouteNames.login,
-      };
-    }
+    console.log(email);
     return {
       success: false,
-      redirectTo: RouteNames.login,
+      redirectTo: '/login',
       error: {
         name: 'Forgot Password Error',
         message: 'Invalid email/Email not found',

@@ -27,7 +27,7 @@ export const InputText: React.FC<InputProps & {}> = props => {
 const themedStyle = StyleService.create({
   container: {
     backgroundColor: 'white',
-    marginBottom: 5,
+    marginBottom: 10,
     paddingHorizontal: 15,
     paddingVertical: 5,
     borderRadius: 15,
@@ -36,7 +36,6 @@ const themedStyle = StyleService.create({
     backgroundColor: 'white',
     borderWidth: 0,
     borderRadius: 0,
-    padding: 0,
   },
   danger: {
     borderWidth: 1,
@@ -46,7 +45,6 @@ const themedStyle = StyleService.create({
     borderWidth: 0,
   },
   textStyle: {
-    paddingHorizontal: 0,
-    marginLeft: -5,
+    paddingHorizontal: -10,
   },
 });

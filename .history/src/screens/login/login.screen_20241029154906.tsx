@@ -117,7 +117,7 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
                   label="Password"
-                  accessoryRight={renderPasswordIcon}
+                  //accessoryRight={renderPasswordIcon}
                   secureTextEntry={secureTextEntry}
                 />
                 <TouchableWithoutFeedback
