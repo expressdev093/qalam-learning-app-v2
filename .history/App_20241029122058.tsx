@@ -1,5 +1,5 @@
 import {Refine} from '@refinedev/core';
-import React, {Fragment} from 'react';
+import React from 'react';
 import {SafeAreaView} from 'react-native';
 import {myCustomDataProvider} from './src/providers';
 import {MainNavigation} from './src/navigations/main';
@@ -23,14 +23,10 @@ import {
   SimpleLineIconsPack,
   ZocialIconsPack,
 } from './src/components/icons';
-import {AppThemeProvider} from './src/components/themes';
-import {StoreProvider} from './src/redux';
-import {SafeAreaProviderCompat} from '@react-navigation/elements';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export const App = () => {
   return (
-    <StoreProvider>
+    <SafeAreaView style={{flex: 1}}>
       <Refine
         dataProvider={myCustomDataProvider}
         //authProvider={authProvider}
@@ -47,34 +43,28 @@ export const App = () => {
             },
           },
         ]}>
-        <Fragment>
-          <IconRegistry
-            icons={[
-              EvaIconsPack,
-              AntDesignIconsPack,
-              EntypoIconsPack,
-              EvilIconsPack,
-              FeatherIconsPack,
-              FontAwesomeIconsPack,
-              FontAwesome5IconsPack,
-              FontistoIconsPack,
-              FoundationIconsPack,
-              IonIconsPack,
-              MaterialCommunityIconsPack,
-              MaterialIconsPack,
-              OctiIconsPack,
-              SimpleLineIconsPack,
-              ZocialIconsPack,
-              AssetIconsPack,
-            ]}
-          />
-          <SafeAreaProvider>
-            <AppThemeProvider>
-              <MainNavigation />
-            </AppThemeProvider>
-          </SafeAreaProvider>
-        </Fragment>
+        <IconRegistry
+          icons={[
+            EvaIconsPack,
+            AntDesignIconsPack,
+            EntypoIconsPack,
+            EvilIconsPack,
+            FeatherIconsPack,
+            FontAwesomeIconsPack,
+            FontAwesome5IconsPack,
+            FontistoIconsPack,
+            FoundationIconsPack,
+            IonIconsPack,
+            MaterialCommunityIconsPack,
+            MaterialIconsPack,
+            OctiIconsPack,
+            SimpleLineIconsPack,
+            ZocialIconsPack,
+            AssetIconsPack,
+          ]}
+        />
+        <MainNavigation />
       </Refine>
-    </StoreProvider>
+    </SafeAreaView>
   );
 };

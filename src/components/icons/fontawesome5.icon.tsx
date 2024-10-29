@@ -1,0 +1,40 @@
+import React from 'react';
+import {StyleProp, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
+type Props = {
+  name: string | symbol;
+  style: StyleProp<any>;
+};
+
+export const FontAwesome5IconsPack = {
+  name: 'fontawesome5',
+  icons: createIconsMap(),
+};
+
+function createIconsMap() {
+  return new Proxy(
+    {},
+    {
+      get(target, name) {
+        return IconProvider(name);
+      },
+    },
+  );
+}
+
+const IconProvider = (name: string | symbol) => ({
+  toReactElement: (props: Props) => CreateIcon({...props, name}),
+});
+
+const CreateIcon = ({name, style}: Props) => {
+  const {height, tintColor, ...iconStyle} = StyleSheet.flatten(style);
+  return (
+    <Icon
+      name={name as any}
+      size={height as any}
+      color={tintColor}
+      style={iconStyle}
+    />
+  );
+};

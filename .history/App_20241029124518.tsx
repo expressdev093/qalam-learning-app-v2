@@ -26,7 +26,6 @@ import {
 import {AppThemeProvider} from './src/components/themes';
 import {StoreProvider} from './src/redux';
 import {SafeAreaProviderCompat} from '@react-navigation/elements';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export const App = () => {
   return (
@@ -68,11 +67,11 @@ export const App = () => {
               AssetIconsPack,
             ]}
           />
-          <SafeAreaProvider>
-            <AppThemeProvider>
+          <AppThemeProvider>
+            <SafeAreaProviderCompat>
               <MainNavigation />
-            </AppThemeProvider>
-          </SafeAreaProvider>
+            </SafeAreaProviderCompat>
+          </AppThemeProvider>
         </Fragment>
       </Refine>
     </StoreProvider>

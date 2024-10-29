@@ -23,14 +23,10 @@ import {
   SimpleLineIconsPack,
   ZocialIconsPack,
 } from './src/components/icons';
-import {AppThemeProvider} from './src/components/themes';
-import {StoreProvider} from './src/redux';
-import {SafeAreaProviderCompat} from '@react-navigation/elements';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export const App = () => {
   return (
-    <StoreProvider>
+    <SafeAreaView style={{flex: 1}}>
       <Refine
         dataProvider={myCustomDataProvider}
         //authProvider={authProvider}
@@ -68,13 +64,9 @@ export const App = () => {
               AssetIconsPack,
             ]}
           />
-          <SafeAreaProvider>
-            <AppThemeProvider>
-              <MainNavigation />
-            </AppThemeProvider>
-          </SafeAreaProvider>
+          <MainNavigation />
         </Fragment>
       </Refine>
-    </StoreProvider>
+    </SafeAreaView>
   );
 };
