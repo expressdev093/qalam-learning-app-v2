@@ -31,12 +31,14 @@ const themedStyle = StyleService.create({
     paddingHorizontal: 15,
     paddingVertical: 5,
     borderRadius: 15,
+    width: '100%',
   },
   input: {
     backgroundColor: 'white',
     borderWidth: 0,
     borderRadius: 0,
     padding: 0,
+    width: '100%',
   },
   danger: {
     borderWidth: 1,

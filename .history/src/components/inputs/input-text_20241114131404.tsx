@@ -8,7 +8,7 @@ import React from 'react';
 import {View} from 'react-native';
 
 export const InputText: React.FC<InputProps & {}> = props => {
-  const {status, ...restProps} = props;
+  const {status, caption, ...restProps} = props;
   const styles = useStyleSheet(themedStyle);
 
   return (

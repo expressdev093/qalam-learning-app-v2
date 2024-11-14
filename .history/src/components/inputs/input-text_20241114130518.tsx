@@ -5,7 +5,7 @@ import {
   useStyleSheet,
 } from '@ui-kitten/components';
 import React from 'react';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
 export const InputText: React.FC<InputProps & {}> = props => {
   const {status, ...restProps} = props;
@@ -16,7 +16,7 @@ export const InputText: React.FC<InputProps & {}> = props => {
       <Input
         {...restProps}
         textStyle={styles.textStyle}
-        style={[styles.input, restProps.style]}
+        style={[styles.input, ...restProps.style]}
         status={status}
         size="small"
       />

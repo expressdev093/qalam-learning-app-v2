@@ -5,7 +5,7 @@ import {
   useStyleSheet,
 } from '@ui-kitten/components';
 import React from 'react';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 
 export const InputText: React.FC<InputProps & {}> = props => {
   const {status, ...restProps} = props;
@@ -37,6 +37,7 @@ const themedStyle = StyleService.create({
     borderWidth: 0,
     borderRadius: 0,
     padding: 0,
+    width: '100%',
   },
   danger: {
     borderWidth: 1,
