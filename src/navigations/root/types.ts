@@ -9,7 +9,7 @@ import {RouteNames} from '../constants/route.name';
 export type RootStackParamList = {
   [RouteNames.login]: undefined;
   [RouteNames.signUp]: undefined;
-  [RouteNames.home]: undefined;
+  [RouteNames.homeDrawer]: undefined;
   [RouteNames.forgotPassword]: undefined;
 };
 

@@ -23,7 +23,7 @@ export const authProvider: AuthProvider = {
       });
       return {
         success: true,
-        redirectTo: RouteNames.home,
+        redirectTo: RouteNames.homeDrawer,
         ...data,
       };
     }

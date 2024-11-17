@@ -6,6 +6,7 @@ import {LoginScreen} from '../../screens/auth/login.screen';
 import {HomeScreen} from '../../screens/home/home.screen';
 import {ForgotPasswordScreen} from '../../screens/forgot-password/forgot-password.screen';
 import {SignUpScreen} from '../../screens/auth/signup.screen';
+import {HomeDrawer} from '../home-drawer/drawer';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,7 +25,7 @@ export const RootStack = () => {
           name={RouteNames.forgotPassword}
           component={ForgotPasswordScreen}
         />
-        <Stack.Screen name={RouteNames.home} component={HomeScreen} />
+        <Stack.Screen name={RouteNames.homeDrawer} component={HomeDrawer} />
       </Stack.Navigator>
     </React.Fragment>
   );
