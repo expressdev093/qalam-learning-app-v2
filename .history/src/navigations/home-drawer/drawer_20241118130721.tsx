@@ -13,13 +13,10 @@ const {Navigator, Screen} = createDrawerNavigator<HomeDrawerParamList>();
 export const HomeDrawer = ({}) => {
   return (
     <Navigator
-      screenOptions={
-        {
-          //headerShown: false,
-          // headerShadowVisible: false,
-        }
-      }
-      backBehavior="initialRoute">
+      screenOptions={{
+        headerShown: false,
+        headerShadowVisible: false,
+      }}>
       <Screen name={RouteNames.homeTabar} component={HomeScreen} />
       <Screen name={RouteNames.profile} component={ProfileScreen} />
     </Navigator>

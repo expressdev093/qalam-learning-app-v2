@@ -47,7 +47,7 @@ const BottomTabBar = ({state}: BottomTabBarProps) => {
   );
 };
 
-export const HomeBottomTabBar = () => {
+export const HomeBottomTabBar: React.FC = ({}) => {
   const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator

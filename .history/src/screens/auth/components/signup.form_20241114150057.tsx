@@ -36,7 +36,7 @@ const initialValues: FormProps = {
   email: '',
   password: '',
   confirmPassword: '',
-  board: -1,
+  board: 0,
   grade: 0,
   phoneNumber: '3471234567',
   countryCode: '+92',

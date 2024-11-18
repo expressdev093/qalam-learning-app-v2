@@ -6,22 +6,18 @@ import {RouteNames} from '../constants/route.name';
 import {HomeScreen} from '../../screens/home/home.screen';
 import {HomeDrawerContent} from './content';
 import {HomeBottomTabBar} from '../tabbars/home/tabbar';
-import {ProfileScreen} from '../../screens/profile/profile.screen';
 
 const {Navigator, Screen} = createDrawerNavigator<HomeDrawerParamList>();
 
 export const HomeDrawer = ({}) => {
   return (
     <Navigator
-      screenOptions={
-        {
-          //headerShown: false,
-          // headerShadowVisible: false,
-        }
-      }
-      backBehavior="initialRoute">
-      <Screen name={RouteNames.homeTabar} component={HomeScreen} />
-      <Screen name={RouteNames.profile} component={ProfileScreen} />
+      screenOptions={{
+        headerShown: false,
+        headerShadowVisible: false,
+      }}
+      drawerContent={HomeDrawerContent}>
+      <Screen name={RouteNames.homeTabar} component={HomeBottomTabBar} />
     </Navigator>
   );
 };

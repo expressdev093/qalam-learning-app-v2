@@ -13,13 +13,11 @@ import {HomeDrawerScreenProps} from '../../home-drawer/types';
 import {ClassesScreen} from '../../../screens/classes/classes.screen';
 import {AnalysisScreen} from '../../../screens/analysis/analysis.screen';
 import {ProfileScreen} from '../../../screens/profile/profile.screen';
-import {useNavigation} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator<HomeBottomTabParamList>();
 
-const BottomTabBar = ({state}: BottomTabBarProps) => {
+const BottomTabBar: React.FC<BottomTabBarProps> = ({navigation, state}) => {
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation<any>();
 
   return (
     <BottomNavigation
@@ -47,7 +45,7 @@ const BottomTabBar = ({state}: BottomTabBarProps) => {
   );
 };
 
-export const HomeBottomTabBar = () => {
+export const HomeBottomTabBar: React.FC = ({}) => {
   const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator

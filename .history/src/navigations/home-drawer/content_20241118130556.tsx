@@ -47,8 +47,7 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
       style={[styles.drawer, {paddingBottom: bottom}]}
       appearance="noDivider"
       selectedIndex={new IndexPath(state.index)}
-      onSelect={handleSelect}
-      header={props => <HomeDrawerContentHeader {...props} />}>
+      onSelect={handleSelect}>
       <DrawerItem
         title={props => <Title textProps={props} title="Home" />}
         accessoryLeft={props => (

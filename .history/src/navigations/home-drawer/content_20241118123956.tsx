@@ -61,18 +61,6 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
         )}
         style={getDrawerItemStyle(0)}
       />
-      <DrawerItem
-        title={props => <Title textProps={props} title="Profile" />}
-        accessoryLeft={props => (
-          <Icon
-            {...props}
-            name="home"
-            pack="feather"
-            size={Sizes.drawerIconSize}
-          />
-        )}
-        style={getDrawerItemStyle(1)}
-      />
     </Drawer>
   );
 };

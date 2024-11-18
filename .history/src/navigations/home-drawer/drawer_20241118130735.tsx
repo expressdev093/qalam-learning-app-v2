@@ -18,8 +18,7 @@ export const HomeDrawer = ({}) => {
           //headerShown: false,
           // headerShadowVisible: false,
         }
-      }
-      backBehavior="initialRoute">
+      }>
       <Screen name={RouteNames.homeTabar} component={HomeScreen} />
       <Screen name={RouteNames.profile} component={ProfileScreen} />
     </Navigator>

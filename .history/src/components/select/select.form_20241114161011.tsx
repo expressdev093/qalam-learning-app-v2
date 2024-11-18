@@ -16,7 +16,6 @@ interface GenericSelectProps {
   titleField?: string; // Field name to use for the title (displayed text)
   valueField?: string; // Field name to use for the value (used in form state)
   placeholder?: string; // Placeholder for Select dropdown
-  errorMessage?: string; // Custom error message
 }
 
 export const SelectField: React.FC<GenericSelectProps> = ({
@@ -26,13 +25,11 @@ export const SelectField: React.FC<GenericSelectProps> = ({
   titleField = 'name',
   valueField = 'id',
   placeholder,
-  errorMessage = 'Please select a valid option.', // Default message
 }) => {
   const {
     control,
-    setError,
+    setError, // To manually trigger form errors
     formState: {errors},
-    getValues, // Access getValues directly from useFormContext
   } = useFormContext(); // Access form context
 
   const styles = useStyleSheet(themedStyle);
@@ -42,15 +39,14 @@ export const SelectField: React.FC<GenericSelectProps> = ({
     : data;
 
   useEffect(() => {
-    // Watch for changes in the field value and set error if it's -1 (placeholder)
-    const fieldValue = getValues(name); // Access the value of the field directly
-    if (fieldValue === -1) {
+    // Watch for changes in the field value, and set error if it's -1 (placeholder)
+    if (control.getValues(name) === -1) {
       setError(name, {
         type: 'manual',
-        message: errorMessage,
+        message: 'Please select a valid option.',
       });
     }
-  }, [getValues, name, setError, errorMessage]); // Ensure getValues is part of the dependency array
+  }, [control, name, setError]); // Only run when control or name changes
 
   return (
     <Controller
@@ -67,18 +63,20 @@ export const SelectField: React.FC<GenericSelectProps> = ({
         const isPlaceholder = field.value === -1;
 
         // Handle onSelect action
-        const handleSelect = (index: IndexPath) => {
-          const selectedValue = selectOptions[index.row][valueField];
+        const handleSelect = (index: IndexPath | IndexPath[]) => {
+          if (!Array.isArray(index)) {
+            const selectedValue = selectOptions[index.row][valueField];
 
-          if (selectedValue === -1) {
-            // If placeholder is selected, trigger the error
-            setError(name, {
-              type: 'manual',
-              message: errorMessage,
-            });
-          } else {
-            // Otherwise, update the field value
-            field.onChange(selectedValue);
+            if (selectedValue === -1) {
+              // If placeholder is selected, trigger the error
+              setError(name, {
+                type: 'manual',
+                message: 'Please select a valid option.',
+              });
+            } else {
+              // Otherwise, update the field value
+              field.onChange(selectedValue);
+            }
           }
         };
 
@@ -93,7 +91,7 @@ export const SelectField: React.FC<GenericSelectProps> = ({
                   titleField
                 ]
               }
-              onSelect={handleSelect as any}
+              onSelect={handleSelect}
               style={styles.select}>
               {selectOptions.map((item: any, index: number) => (
                 <SelectItem key={index} title={item[titleField]} />

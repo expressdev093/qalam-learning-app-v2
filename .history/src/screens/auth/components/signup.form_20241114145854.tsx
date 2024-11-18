@@ -1,22 +1,14 @@
 import {useList} from '@refinedev/core';
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 
 import * as Yup from 'yup';
 import {IBoard} from '../../../interfaces';
-import {
-  IndexPath,
-  StyleService,
-  Text,
-  useStyleSheet,
-} from '@ui-kitten/components';
+import {IndexPath, StyleService, useStyleSheet} from '@ui-kitten/components';
 import {useForm, SubmitHandler, FormProvider} from 'react-hook-form';
 import {LoadingButton} from '../../../components/buttons';
 import {InputField, InputTextValidation} from '../../../components/inputs';
 import {SelectField} from '../../../components/select/select.form';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from '../../../navigations/root/types';
-import {RouteNames} from '../../../navigations/constants/route.name';
 
 interface FormProps {
   fullName: string;
@@ -36,7 +28,7 @@ const initialValues: FormProps = {
   email: '',
   password: '',
   confirmPassword: '',
-  board: -1,
+  board: 0,
   grade: 0,
   phoneNumber: '3471234567',
   countryCode: '+92',
@@ -57,8 +49,6 @@ const validationSchema = Yup.object({
 });
 
 export const SignUpForm = () => {
-  const navigation =
-    useNavigation<RootStackNavigationProp<RouteNames.signUp>>();
   const styles = useStyleSheet(themedStyle);
   const [selectedIndex, setSelectedIndex] = React.useState<
     IndexPath | IndexPath[]
@@ -103,12 +93,6 @@ export const SignUpForm = () => {
             Sign up
           </LoadingButton>
         </View>
-        <View style={styles.footer}>
-          <Text style={styles.p}>Already have an account? </Text>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text style={styles.primaryP}>Login</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </FormProvider>
   );
@@ -122,17 +106,5 @@ const themedStyle = StyleService.create({
   },
   formContainer: {
     flex: 1,
-  },
-  primaryP: {
-    color: 'color-primary-500',
-  },
-  footer: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    flex: 1,
-  },
-  p: {
-    textAlign: 'center',
-    marginTop: 10,
   },
 });

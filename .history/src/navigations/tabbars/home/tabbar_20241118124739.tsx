@@ -17,7 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator<HomeBottomTabParamList>();
 
-const BottomTabBar = ({state}: BottomTabBarProps) => {
+const BottomTabBar: React.FC<BottomTabBarProps> = ({state}) => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<any>();
 
@@ -47,7 +47,7 @@ const BottomTabBar = ({state}: BottomTabBarProps) => {
   );
 };
 
-export const HomeBottomTabBar = () => {
+export const HomeBottomTabBar: React.FC = ({}) => {
   const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
