@@ -8,6 +8,8 @@ import {
 } from '@ui-kitten/components';
 import {Controller, useFormContext} from 'react-hook-form';
 import {Text, View} from 'react-native';
+import {StyleProp} from 'react-native';
+import {ViewStyle} from 'react-native';
 
 interface GenericSelectProps {
   name: string; // Name for the form field
@@ -16,7 +18,8 @@ interface GenericSelectProps {
   titleField?: string; // Field name to use for the title (displayed text)
   valueField?: string; // Field name to use for the value (used in form state)
   placeholder?: string; // Placeholder for Select dropdown
-  errorMessage?: string; // Custom error message
+  errorMessage?: string; // Custom error message,
+  inputStyle?: StyleProp<ViewStyle>;
 }
 
 export const SelectField: React.FC<GenericSelectProps> = ({
@@ -26,7 +29,8 @@ export const SelectField: React.FC<GenericSelectProps> = ({
   titleField = 'name',
   valueField = 'id',
   placeholder,
-  errorMessage = 'Please select a valid option.', // Default message
+  errorMessage = 'Please select a valid option.', // Default message,
+  inputStyle,
 }) => {
   const {
     control,
@@ -44,12 +48,12 @@ export const SelectField: React.FC<GenericSelectProps> = ({
   useEffect(() => {
     // Watch for changes in the field value and set error if it's -1 (placeholder)
     const fieldValue = getValues(name); // Access the value of the field directly
-    if (fieldValue === -1) {
-      setError(name, {
-        type: 'manual',
-        message: errorMessage,
-      });
-    }
+    // if (fieldValue === -1) {
+    //   setError(name, {
+    //     type: 'manual',
+    //     message: errorMessage,
+    //   });
+    // }
   }, [getValues, name, setError, errorMessage]); // Ensure getValues is part of the dependency array
 
   return (
@@ -94,7 +98,7 @@ export const SelectField: React.FC<GenericSelectProps> = ({
                 ]
               }
               onSelect={handleSelect as any}
-              style={styles.select}>
+              style={[styles.select, inputStyle]}>
               {selectOptions.map((item: any, index: number) => (
                 <SelectItem key={index} title={item[titleField]} />
               ))}

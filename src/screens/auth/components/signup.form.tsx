@@ -1,30 +1,49 @@
-import {useList} from '@refinedev/core';
-import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
-
-import * as Yup from 'yup';
-import {IBoard} from '../../../interfaces';
 import {
-  IndexPath,
+  HttpError,
+  useActiveAuthProvider,
+  useApiUrl,
+  useCreate,
+  useCustomMutation,
+  useList,
+  useRegister,
+} from '@refinedev/core';
+import React from 'react';
+import {
+  ScrollView,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import {IBoard, IBoardClass, IUser} from '../../../interfaces';
+import {
+  CheckBox,
   StyleService,
   Text,
   useStyleSheet,
 } from '@ui-kitten/components';
-import {useForm, SubmitHandler, FormProvider} from 'react-hook-form';
+import {
+  useForm,
+  SubmitHandler,
+  FormProvider,
+  Controller,
+} from 'react-hook-form';
 import {LoadingButton} from '../../../components/buttons';
-import {InputField, InputTextValidation} from '../../../components/inputs';
+import {InputField} from '../../../components/inputs';
 import {SelectField} from '../../../components/select/select.form';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../../navigations/root/types';
 import {RouteNames} from '../../../navigations/constants/route.name';
+import {Icon} from '../../../components/icon';
+import {Utils} from '../../../constants/utils';
+import {LoginProvider, Role} from '../../../interfaces/enum';
 
 interface FormProps {
   fullName: string;
   email: string;
   password: string;
   confirmPassword: string;
-  board: number;
-  grade: number;
+  boardId: number;
+  boardClassId: number;
   phoneNumber: string;
   countryCode: string;
   countryShortCode: string;
@@ -32,38 +51,29 @@ interface FormProps {
 }
 
 const initialValues: FormProps = {
-  fullName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  board: -1,
-  grade: 0,
+  fullName: 'Test Test1',
+  email: 'test1@gmail.com',
+  password: '@Abc1234',
+  confirmPassword: '@Abc1234',
+  boardId: -1,
+  boardClassId: -1,
   phoneNumber: '3471234567',
   countryCode: '+92',
   countryShortCode: 'PK',
   isAgree: true,
 };
 
-const validationSchema = Yup.object({
-  fullName: Yup.string().required('Full name is required'),
-  email: Yup.string().email('Invalid Email').required('Email is required'),
-  password: Yup.string().required('Password is required'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), ''], 'Passwords must match')
-    .required('Confirm password is required'),
-  board: Yup.number().min(1, 'Select board').required('Board is required'),
-  grade: Yup.number().min(1, 'Select grade').required('Grade is required'),
-  phoneNumber: Yup.string().trim().required('Valid phone number is required'),
-});
-
 export const SignUpForm = () => {
+  const authProvider = useActiveAuthProvider();
+  const {mutate: register, isLoading: isRegistering} = useRegister<FormProps>({
+    v3LegacyAuthProviderCompatible: Boolean(authProvider?.isLegacy),
+  });
+
+  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
   const navigation =
     useNavigation<RootStackNavigationProp<RouteNames.signUp>>();
   const styles = useStyleSheet(themedStyle);
-  const [selectedIndex, setSelectedIndex] = React.useState<
-    IndexPath | IndexPath[]
-  >(new IndexPath(0));
-  const methods = useForm<FormProps>({
+  const form = useForm<FormProps>({
     defaultValues: initialValues,
   }); // Initialize the form context
 
@@ -76,38 +86,187 @@ export const SignUpForm = () => {
 
   const boards = boardsResult.data?.data;
 
+  const selectedBoardId = form.watch('boardId');
+  const isAgree = form.watch('isAgree', false); // Watch the value of 'isAgree'
+
+  const boardClassesResult = useList<IBoardClass>({
+    resource: 'board-classes',
+    pagination: {
+      mode: 'off',
+    },
+    filters: [
+      {
+        field: 'boardId',
+        operator: 'eq',
+        value: selectedBoardId,
+      },
+    ],
+    queryOptions: {
+      enabled: !!selectedBoardId && selectedBoardId !== 0,
+    },
+  });
+
+  const boardClasses = boardClassesResult.data?.data;
+
   const onSubmit: SubmitHandler<FormProps> = data => {
-    console.log(data);
+    const {fullName, confirmPassword, boardId, boardClassId, isAgree, ...rest} =
+      data;
+    const {firstName, lastName} = Utils.extractName(fullName);
+
+    if (boardId === -1) {
+      form.setError('boardId', {
+        message: 'Select Board',
+      });
+      return;
+    }
+
+    if (boardClassId === -1) {
+      form.setError('boardClassId', {
+        message: 'Select Class',
+      });
+      return;
+    }
+
+    const newUser: any = {
+      ...rest,
+      firstName,
+      lastName,
+      role: Role.User,
+      isVerified: false,
+      isActive: true,
+      provider: LoginProvider.EmailPassword,
+      boardClassId: boardClassId,
+      boardId: boardId,
+    };
+
+    register(
+      {
+        ...newUser,
+      },
+      {
+        onSuccess: (data: any) => {
+          navigation.goBack();
+        },
+      },
+    );
   };
 
+  const renderPasswordIcon = (props: any) => (
+    <TouchableWithoutFeedback
+      onPress={() => setSecureTextEntry(!secureTextEntry)}>
+      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
+    </TouchableWithoutFeedback>
+  );
+
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...form}>
       <View style={styles.container}>
         <View style={styles.formContainer}>
-          <SelectField
-            data={boards ?? []}
-            titleField="name"
-            valueField="id"
-            name="board"
-            placeholder="Select Board"
-          />
-          <InputField
-            name="fullName"
-            label="Full Name"
-            placeholder="Enter your full name"
-            rules={{required: 'Full name is required'}}
-          />
-          <LoadingButton
-            onPress={methods.handleSubmit(onSubmit)}
-            style={{marginTop: 20}}>
-            Sign up
-          </LoadingButton>
-        </View>
-        <View style={styles.footer}>
-          <Text style={styles.p}>Already have an account? </Text>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text style={styles.primaryP}>Login</Text>
-          </TouchableOpacity>
+          <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+            <View>
+              <InputField
+                name="fullName"
+                label="Full Name"
+                placeholder="Full Name"
+                rules={{
+                  required: 'Full name is required',
+                }}
+              />
+              <SelectField
+                data={boards ?? []}
+                titleField="name"
+                valueField="id"
+                name="boardId"
+                placeholder="Select Board"
+              />
+              <SelectField
+                data={boardClasses ?? []}
+                titleField="name"
+                valueField="id"
+                name="boardClassId"
+                placeholder="Select Class"
+              />
+              <InputField
+                name="email"
+                label="Email"
+                placeholder="Email Address"
+                rules={{
+                  required: 'Email address is required',
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Regex for basic email validation
+                    message: 'Please enter a valid email address', // Error message for invalid email
+                  },
+                }}
+              />
+              <InputField
+                name="password"
+                label="Password"
+                placeholder="Password"
+                rules={{
+                  required: 'Password is required',
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message:
+                      'Password must contain at least 8 characters, including uppercase, lowercase, number, and symbol',
+                  },
+                }}
+                secureTextEntry={secureTextEntry}
+                accessoryRight={renderPasswordIcon}
+              />
+              <InputField
+                name="confirmPassword"
+                label="Confirm Password"
+                placeholder="Confirm Password"
+                rules={{
+                  required: 'Confirm Password is required',
+                  validate: (value: string) =>
+                    value === form.getValues('password') ||
+                    'Passwords do not match',
+                }}
+                secureTextEntry={secureTextEntry}
+                accessoryRight={renderPasswordIcon}
+              />
+            </View>
+          </ScrollView>
+          <View style={styles.termConditionView}>
+            <Controller
+              name="isAgree"
+              control={form.control} // Ensure you're passing the `control` from `useForm()`
+              defaultValue={false} // Default value for the checkbox
+              render={({field}) => (
+                <CheckBox
+                  checked={field.value}
+                  onChange={field.onChange}
+                  style={{marginTop: 10, marginRight: 20}}
+                />
+              )}
+            />
+            <View>
+              <Text style={styles.p}>I have read and agree to the </Text>
+              <TouchableOpacity>
+                <Text style={[styles.primaryP, {marginLeft: 5}]}>
+                  terms and conditions
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.footer}>
+            <LoadingButton
+              disabled={!isAgree}
+              loading={isRegistering}
+              onPress={form.handleSubmit(onSubmit)}
+              style={{marginTop: 20}}>
+              Sign up
+            </LoadingButton>
+            <View style={styles.loginTextView}>
+              <Text style={styles.p}>Already have an account? </Text>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Text style={styles.primaryP}>Login</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </View>
     </FormProvider>
@@ -127,12 +286,19 @@ const themedStyle = StyleService.create({
     color: 'color-primary-500',
   },
   footer: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  loginTextView: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    flex: 1,
   },
   p: {
     textAlign: 'center',
     marginTop: 10,
+  },
+  termConditionView: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

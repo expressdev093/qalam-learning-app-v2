@@ -83,6 +83,10 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
     </TouchableWithoutFeedback>
   );
 
+  const googleSignIn = async () => {};
+
+  const onFacebookButtonPress = async () => {};
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <StatusBar
@@ -150,8 +154,20 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
             appearance="ghost">
             Create Account
           </Button>
-          <Button appearance="ghost" />
-          <Button appearance="ghost" />
+          <Button
+            onPress={googleSignIn}
+            accessoryLeft={props => (
+              <Google {...props} width={36} height={36} />
+            )}
+            appearance="ghost"
+          />
+          <Button
+            onPress={onFacebookButtonPress}
+            accessoryLeft={props => (
+              <Facebook {...props} width={36} height={36} />
+            )}
+            appearance="ghost"
+          />
         </View>
       </Layout>
     </SafeAreaView>

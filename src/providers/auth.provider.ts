@@ -90,4 +90,17 @@ export const authProvider: AuthProvider = {
       },
     };
   },
+  register: async (params: any) => {
+    const user = await myCustomDataProvider.custom<IUser>({
+      url: myCustomDataProvider.getApiUrl() + '/auth/register',
+      method: 'post',
+      payload: params,
+    });
+
+    return {
+      success: true,
+      redirectTo: RouteNames.login,
+      user: user,
+    };
+  },
 };
