@@ -12,6 +12,7 @@ import {RootStackNavigationProp} from '../../../navigations/root/types';
 import {Icon} from '../../../components/icon';
 import {NerdAmico} from '../../../components/svgs';
 import {useOne} from '@refinedev/core';
+import Toast from 'react-native-toast-message';
 
 type IProps = {};
 
@@ -45,7 +46,12 @@ export const TopCard: React.FC<IProps> = ({}) => {
       //   } as IVideo,
       // });
     } else {
-      toast.show('This class is already ended');
+      Toast.show({
+        type: 'info',
+        text1: 'Class Info',
+        text2: 'This class is already ended',
+      });
+      //toast.show('This class is already ended');
     }
   };
 

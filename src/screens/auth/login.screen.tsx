@@ -6,13 +6,16 @@ import {
   useStyleSheet,
 } from '@ui-kitten/components';
 import React from 'react';
-import {StatusBar, TouchableWithoutFeedback, View} from 'react-native';
+import {
+  StatusBar,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import * as Yup from 'yup';
-import {HeaderBackButton} from '@react-navigation/elements';
 import {RootStackScreenProps} from '../../navigations/root/types';
 import {RouteNames} from '../../navigations/constants/route.name';
-import {Alert} from '../../components/alerts';
 import {Formik} from 'formik';
 import {InputTextValidation} from '../../components/inputs';
 import {Icon} from '../../components/icon';
@@ -33,9 +36,14 @@ interface LoginFormProps {
   password: string;
 }
 
+// const initialValues: LoginFormProps = {
+//   email: 'amrafridi.29@gmail.com',
+//   password: '@Abc1234',
+// };
+
 const initialValues: LoginFormProps = {
-  email: 'amrafridi.29@gmail.com',
-  password: '@Abc1234',
+  email: '',
+  password: '',
 };
 
 const validationSchema = Yup.object({
@@ -67,6 +75,16 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
               token: data.token,
             }),
           );
+          // const resetAction = StackActions.reset({
+          //   index: 0,
+          //   actions: [
+          //     NavigationActions.navigate({
+          //       routeName: RouteNames.authentication,
+          //     }),
+          //   ],
+          // });
+          //  navigation.dispatch(resetAction);
+
           navigation.reset({
             index: 0,
             routes: [{name: data.redirectTo}], // Replace 'Home' with the main screen of your RootStack
@@ -98,7 +116,12 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
           Hello,
         </Text>
         <Text category="h3">Welcome Back</Text>
-        <View style={{marginTop: 40, width: '100%'}}>
+        <View
+          style={{
+            marginTop: 40,
+            width: '100%',
+            justifyContent: 'center',
+          }}>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -149,12 +172,6 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
         <HorizontalLineWithText text="or" style={{marginTop: 20}} />
         <View style={{flexDirection: 'row', marginTop: 20}}>
           <Button
-            onPress={() => navigation.navigate(RouteNames.signUp)}
-            // accessoryLeft={props => <Apple {...props} width={36} height={36} />}
-            appearance="ghost">
-            Create Account
-          </Button>
-          <Button
             onPress={googleSignIn}
             accessoryLeft={props => (
               <Google {...props} width={36} height={36} />
@@ -170,6 +187,13 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
           />
         </View>
       </Layout>
+      <View style={styles.footer}>
+        <Text style={styles.p}>Don't have an account yet? </Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(RouteNames.signUp)}>
+          <Text style={styles.primaryP}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -193,5 +217,22 @@ const themedStyle = StyleService.create({
   },
   forgotPasswordText: {
     color: 'color-primary-500',
+    textAlign: 'right',
+  },
+  footer: {
+    minHeight: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    backgroundColor: Colors.basicBackgroundColor1,
+  },
+  p: {
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  primaryP: {
+    color: 'color-primary-500',
+    marginTop: 10,
   },
 });

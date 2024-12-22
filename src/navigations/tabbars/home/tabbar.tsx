@@ -60,7 +60,11 @@ export const HomeBottomTabBar = () => {
       }}
       tabBar={props => <BottomTabBar {...props} />}>
       <Tab.Screen name={RouteNames.homeTab} component={HomeScreen} />
-      <Tab.Screen name={RouteNames.classesTab} component={ClassesScreen} />
+      <Tab.Screen
+        name={RouteNames.classesTab}
+        component={ClassesScreen}
+        options={{headerShown: false}}
+      />
       <Tab.Screen name={RouteNames.analysisTab} component={AnalysisScreen} />
       <Tab.Screen name={RouteNames.profileTab} component={ProfileScreen} />
     </Tab.Navigator>

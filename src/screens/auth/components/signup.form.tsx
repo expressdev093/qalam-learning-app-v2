@@ -36,6 +36,7 @@ import {RouteNames} from '../../../navigations/constants/route.name';
 import {Icon} from '../../../components/icon';
 import {Utils} from '../../../constants/utils';
 import {LoginProvider, Role} from '../../../interfaces/enum';
+import Toast from 'react-native-toast-message';
 
 interface FormProps {
   fullName: string;
@@ -50,11 +51,24 @@ interface FormProps {
   isAgree: boolean;
 }
 
+// const initialValues: FormProps = {
+//   fullName: 'Test Test1',
+//   email: 'test1@gmail.com',
+//   password: '@Abc1234',
+//   confirmPassword: '@Abc1234',
+//   boardId: -1,
+//   boardClassId: -1,
+//   phoneNumber: '3471234567',
+//   countryCode: '+92',
+//   countryShortCode: 'PK',
+//   isAgree: true,
+// };
+
 const initialValues: FormProps = {
-  fullName: 'Test Test1',
-  email: 'test1@gmail.com',
-  password: '@Abc1234',
-  confirmPassword: '@Abc1234',
+  fullName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
   boardId: -1,
   boardClassId: -1,
   phoneNumber: '3471234567',
@@ -145,6 +159,11 @@ export const SignUpForm = () => {
       },
       {
         onSuccess: (data: any) => {
+          Toast.show({
+            type: 'success',
+            text1: 'Register',
+            text2: 'Your account register successfully',
+          });
           navigation.goBack();
         },
       },

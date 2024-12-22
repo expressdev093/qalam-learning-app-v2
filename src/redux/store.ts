@@ -8,8 +8,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Persist configuration
 const persistConfig = {
-  key: 'root', // The key for the persisted state
+  key: 'qalam-learning-app', // The key for the persisted state
   storage: AsyncStorage,
+  whitelist: ['continueStudy', 'auth'],
 };
 
 // Create a persisted reducer

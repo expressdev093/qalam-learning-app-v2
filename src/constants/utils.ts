@@ -1,3 +1,5 @@
+import {ITopic, ITopicVideosView} from '../interfaces';
+
 export class Utils {
   static getTextColor(backgroundColor: string): string {
     const rgb = Utils.hexToRgb(backgroundColor);
@@ -43,5 +45,54 @@ export class Utils {
 
   static capitalizeFirstWord(str?: string) {
     return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+  }
+
+  static mapTopicVideos(topics: ITopic[]): ITopicVideosView[] {
+    const result: ITopicVideosView[] = [];
+
+    topics.forEach(topic => {
+      const {
+        id,
+        name,
+        description,
+        image,
+        chapterId,
+        subjectId,
+        isActive,
+        subject,
+        videos,
+      } = topic;
+
+      videos.forEach(video => {
+        const {
+          id: videoId,
+          title: videoTitle,
+          description: videoDescription,
+          url: videoUrl,
+          thumbnail: videoThumbnail,
+          views: videoViews,
+        } = video;
+
+        result.push({
+          id,
+          name,
+          description: description || '',
+          image: image || '', // Default empty if null
+          chapterId,
+          subjectId,
+          isActive,
+          videoId,
+          videoTitle,
+          videoDescription: videoDescription || '',
+          videoUrl,
+          videoThumbnail,
+          videoViews,
+          subjectName: subject?.name || '', // Default empty if null
+          subjectImage: subject?.placeholderUrl || '', // Default empty if null
+        });
+      });
+    });
+
+    return result;
   }
 }

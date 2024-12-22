@@ -14,7 +14,10 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Icon} from '../../components/icon';
 import {Sizes} from '../../constants/sizes';
 import {HomeDrawerContentHeader} from './header';
-
+import {useAppDispatch} from '../../redux';
+import {AuthActions} from '../../redux/reducers/auth.reducer';
+import {RouteNames} from '../constants/route.name';
+import {useNavigation} from '@react-navigation/native';
 const Title: React.FC<{textProps?: TextProps; title: string}> = ({
   textProps,
   title,
@@ -31,6 +34,8 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
   navigation,
   state,
 }) => {
+  const rootNavigation = useNavigation<any>();
+  const dispatch = useAppDispatch();
   const {bottom} = useSafeAreaInsets();
   const styles = useStyleSheet(themedStyle);
 
@@ -43,6 +48,12 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
   };
 
   const handleLogout = async () => {
+    // dispatch(AuthActions.logout());
+    // rootNavigation.replace(RouteNames.authentication);
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [{name: RouteNames.authentication}], // Replace 'Home' with the main screen of your RootStack
+    // });
     // try {
     //   const response = await removeLoginDeviceInfo(
     //     await DeviceInfo.getUniqueId(),

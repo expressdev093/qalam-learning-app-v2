@@ -26,5 +26,6 @@ export interface ITopicVideosView {
   videoViews: number;
 
   subjectName: string;
+
   subjectImage: string;
 }

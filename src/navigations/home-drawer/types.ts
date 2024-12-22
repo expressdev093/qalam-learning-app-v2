@@ -4,15 +4,16 @@ import {
 } from '@react-navigation/native-stack';
 import {RouteNames} from '../constants/route.name';
 import {RouteProp} from '@react-navigation/native';
+import {WebsiteContentType} from '../../interfaces/enum';
 
 export type HomeDrawerParamList = {
   [RouteNames.homeTabar]: undefined;
   [RouteNames.profile]: undefined;
   [RouteNames.notifications]: undefined;
   [RouteNames.favorites]: undefined;
-  [RouteNames.aboutUs]: undefined;
-  [RouteNames.privacyPolicy]: undefined;
-  [RouteNames.support]: undefined;
+  [RouteNames.aboutUs]: {type: WebsiteContentType};
+  [RouteNames.privacyPolicy]: {type: WebsiteContentType};
+  [RouteNames.support]: {type: WebsiteContentType};
   [RouteNames.settings]: undefined;
 };
 

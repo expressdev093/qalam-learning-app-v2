@@ -33,6 +33,15 @@ const authSlice = createSlice({
       state.user = undefined;
       state.token = undefined;
     },
+    update: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload;
+    },
+    updateAvatar: (state, action: PayloadAction<string>) => {
+      state.user = {
+        ...state.user!,
+        avatar: action.payload,
+      };
+    },
   },
 });
 

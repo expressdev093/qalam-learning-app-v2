@@ -1,6 +1,13 @@
 import {IBase} from './base.interface';
 import {ITopic} from './topic.interface';
 
+export interface IVideoQuality {
+  resolution: string;
+  quality: string;
+  url: string;
+  isDefault: boolean;
+}
+
 export interface ITopicVideo extends IBase {
   title: string;
 
@@ -17,4 +24,6 @@ export interface ITopicVideo extends IBase {
   isActive: boolean;
 
   topic?: ITopic;
+
+  videoQualities?: IVideoQuality[];
 }
