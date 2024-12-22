@@ -34,6 +34,10 @@ import Config from 'react-native-config';
 import {BASE_URL} from '@env';
 import {ToastProvider} from 'react-native-toast-notifications';
 
+import {enableScreens} from 'react-native-screens';
+
+enableScreens(false); // Disable screens optimizations
+
 export const App = () => {
   console.log(Config.API_KEY, BASE_URL);
   return (

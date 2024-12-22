@@ -9,7 +9,7 @@ import {
 import React from 'react';
 import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../redux';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../navigations/root/types';
 import {Icon} from '../../components/icon';
 import {AuthActions} from '../../redux/reducers/auth.reducer';
@@ -44,8 +44,17 @@ export const ProfileScreen = () => {
   };
 
   const onLogout = () => {
-    // navigation.replace(RouteNames.authentication);
-    // dispatch(AuthActions.logout());
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          {
+            name: RouteNames.authentication,
+          },
+        ],
+      }),
+    );
+    dispatch(AuthActions.logout());
   };
   return (
     <Layout style={styles.container}>

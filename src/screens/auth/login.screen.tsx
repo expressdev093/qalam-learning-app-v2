@@ -30,21 +30,22 @@ import {
 } from '@refinedev/core';
 import {useAppDispatch} from '../../redux';
 import {AuthActions} from '../../redux/reducers/auth.reducer';
+import {CommonActions} from '@react-navigation/native';
 
 interface LoginFormProps {
   email: string;
   password: string;
 }
 
-// const initialValues: LoginFormProps = {
-//   email: 'amrafridi.29@gmail.com',
-//   password: '@Abc1234',
-// };
-
 const initialValues: LoginFormProps = {
-  email: '',
-  password: '',
+  email: 'amrafridi.29@gmail.com',
+  password: '@Abc1234',
 };
+
+// const initialValues: LoginFormProps = {
+//   email: '',
+//   password: '',
+// };
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid Email').required('Email is required'),
@@ -85,10 +86,21 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
           // });
           //  navigation.dispatch(resetAction);
 
-          navigation.reset({
-            index: 0,
-            routes: [{name: data.redirectTo}], // Replace 'Home' with the main screen of your RootStack
-          });
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [
+                {
+                  name: data.redirectTo,
+                },
+              ],
+            }),
+          );
+
+          // navigation.reset({
+          //   index: 0,
+          //   routes: [{name: data.redirectTo}], // Replace 'Home' with the main screen of your RootStack
+          // });
         },
       },
     );

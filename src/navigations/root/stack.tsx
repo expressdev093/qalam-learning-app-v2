@@ -36,8 +36,7 @@ export const RootStack = () => {
           headerShown: false,
         }}
         initialRouteName={
-          RouteNames.authentication
-          //isLoggedIn ? RouteNames.homeDrawer : RouteNames.authentication
+          isLoggedIn ? RouteNames.homeDrawer : RouteNames.authentication
         }>
         <Stack.Screen
           name={RouteNames.authentication}
