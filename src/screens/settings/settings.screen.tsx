@@ -16,6 +16,7 @@ import {AuthActions} from '../../redux/reducers/auth.reducer';
 import {RouteNames} from '../../navigations/constants/route.name';
 import {FocusAwareStatusBar} from '../../components/focus-aware-statusbar';
 import {ThemeColorKey} from '../../constants/colors';
+import Toast from 'react-native-toast-message';
 
 export const SettingsScreen = () => {
   const theme = useTheme();
@@ -52,7 +53,11 @@ export const SettingsScreen = () => {
       // Open the link in the user's preferred app
       await Linking.openURL(url);
     } else {
-      console.log(`Don't know how to open URL: ${url}`);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: "Don't know how to open URL",
+      });
     }
   };
 

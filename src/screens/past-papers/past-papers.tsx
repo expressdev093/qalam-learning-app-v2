@@ -60,8 +60,6 @@ export const PastPaperScreen: React.FC<
     });
   }, []);
 
-  console.log(filter);
-
   return (
     <Layout style={styles.container}>
       <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'} />

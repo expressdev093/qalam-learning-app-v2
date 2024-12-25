@@ -37,8 +37,13 @@ interface LoginFormProps {
   password: string;
 }
 
+// const initialValues: LoginFormProps = {
+//   email: 'amrafridi.29@gmail.com',
+//   password: '@Abc1234',
+// };
+
 const initialValues: LoginFormProps = {
-  email: 'amrafridi.29@gmail.com',
+  email: 'amir@gmail.com',
   password: '@Abc1234',
 };
 

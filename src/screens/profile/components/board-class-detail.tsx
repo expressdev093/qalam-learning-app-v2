@@ -22,9 +22,6 @@ export const BoardClassDetail = () => {
   });
 
   const boardClass = boardClassState.data?.data;
-
-  console.log('boardClass', boardClass, user?.boardClassId);
-
   return (
     <View>
       {boardClassState.isLoading ? (

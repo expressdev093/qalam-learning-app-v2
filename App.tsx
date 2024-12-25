@@ -39,7 +39,7 @@ import {enableScreens} from 'react-native-screens';
 enableScreens(false); // Disable screens optimizations
 
 export const App = () => {
-  console.log(Config.API_KEY, BASE_URL);
+  console.log(Config.API_KEY, Config.BASE_URL, BASE_URL);
   return (
     <StoreProvider>
       <ToastProvider>

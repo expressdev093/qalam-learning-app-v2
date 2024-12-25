@@ -40,7 +40,9 @@ export const SubjectHorizontalItem: React.FC<Props> = ({subject, index}) => {
         ]}>
         {subject?.icon ? (
           <Image
-            source={{uri: BASE_URL + '/' + subject.icon}}
+            source={{
+              uri: BASE_URL + '/' + subject.icon || subject.placeholderUrl,
+            }}
             style={{width: 50, height: 50}}
           />
         ) : (

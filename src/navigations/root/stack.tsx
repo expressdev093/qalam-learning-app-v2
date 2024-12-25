@@ -24,6 +24,9 @@ import {ChangePasswordScreen} from '../../screens/auth/change-password.screen';
 import {ContactUsScreen} from '../../screens/contact-us/contact-us.screen';
 import {ContinueStudyListScreen} from '../../screens/continue-study/continue-study.screen';
 import {useAppSelector} from '../../redux';
+import {QuizResultScreen} from '../../screens/quiz/quiz.result.screen';
+import {QuizCheckCorrectAnswerScreen} from '../../screens/quiz/quiz.check-correct-answer.screen';
+import {QuizResultOverviewScreen} from '../../screens/quiz/quiz.result-overview.screen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -121,10 +124,22 @@ export const RootStack = () => {
         <Stack.Screen name={RouteNames.video} component={VideoScreen} />
         <Stack.Screen name={RouteNames.quiz} component={QuizScreen} />
         <Stack.Screen
+          name={RouteNames.quizCheckCorrectAnswer}
+          component={QuizCheckCorrectAnswerScreen}
+        />
+        <Stack.Screen
+          name={RouteNames.quizResultOverview}
+          component={QuizResultOverviewScreen}
+        />
+        <Stack.Screen
+          name={RouteNames.quizResult}
+          component={QuizResultScreen}
+        />
+        <Stack.Screen
           name={RouteNames.quizShow}
           component={QuizShowScreen}
           options={{
-            headerShown: true,
+            headerShown: false,
           }}
         />
         <Stack.Screen

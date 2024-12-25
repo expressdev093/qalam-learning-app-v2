@@ -54,22 +54,33 @@ export const QuizScreen: React.FC<RootStackScreenProps<RouteNames.quiz>> = ({
         answers: userQuiz.answers,
       });
     } else {
-      const userQuizResult = await createUserQuizAsync({
-        resource: 'user-quizs',
-        values: {
-          isCompleted: false,
-          passingScore: quiz?.passingScore,
-          totalScore: 0,
-          correctAnswers: 0,
-          inCorrectAnswers: 0,
-          userId: user?.id,
-          quizId: quizId,
+      createUserQuizAsync(
+        {
+          resource: 'user-quizs',
+          values: {
+            isCompleted: false,
+            passingScore: quiz?.passingScore,
+            totalScore: 0,
+            correctAnswers: 0,
+            inCorrectAnswers: 0,
+            userId: user?.id,
+            quizId: quizId,
+          },
+          meta: {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
         },
-      });
-      navigation.navigate(RouteNames.quizShow, {
-        quizId: quizId,
-        userQuizId: userQuizResult.data.id,
-      });
+        {
+          onSuccess: data => {
+            navigation.navigate(RouteNames.quizShow, {
+              quizId: quizId,
+              userQuizId: data.data.id,
+            });
+          },
+        },
+      );
     }
   };
 

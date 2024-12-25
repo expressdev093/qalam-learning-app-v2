@@ -52,6 +52,15 @@ export type RootStackParamList = {
     userQuizId: number;
     answers?: IUserQuizAnswer[];
   };
+  [RouteNames.quizResult]: {
+    userQuizId: number;
+  };
+  [RouteNames.quizCheckCorrectAnswer]: {
+    quizId: number;
+  };
+  [RouteNames.quizResultOverview]: {
+    userQuizId: number;
+  };
   [RouteNames.continueStudyList]: undefined;
   [RouteNames.profileEdit]: undefined;
   [RouteNames.changePassword]: undefined;
