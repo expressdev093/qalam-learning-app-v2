@@ -10,18 +10,19 @@ import {RouteNames} from '../../navigations/constants/route.name';
 import {InputTextValidation} from '../../components/inputs';
 import {LoadingButton} from '../../components/buttons';
 import {type ForgotPasswordFormTypes, useForgotPassword} from '@refinedev/core';
+import Toast from 'react-native-toast-message';
 
 interface FormProps {
   email: string;
 }
 
-// const initialValues: FormProps = {
-//   email: 'amrafridi.29@gmail.com',
-// };
-
 const initialValues: FormProps = {
-  email: '',
+  email: 'amrafridi.29@gmail.com',
 };
+
+// const initialValues: FormProps = {
+//   email: '',
+// };
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid Email').required('Email is required'),
@@ -38,7 +39,12 @@ export const ForgotPasswordScreen: React.FC<
   const onSubmit = async (values: FormProps) => {
     forgotPassword(values, {
       onSuccess(data, variables, context) {
-        navigation.navigate(data.redirectTo as any);
+        Toast.show({
+          type: 'success',
+          text1: 'Email sent',
+          text2: 'We have sent you an email to reset your password',
+        });
+        // navigation.navigate(data.redirectTo as any);
       },
     });
   };
