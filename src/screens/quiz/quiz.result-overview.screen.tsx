@@ -44,8 +44,6 @@ export const QuizResultOverviewScreen: React.FC<
     },
   });
 
-  console.log(userQuizState);
-
   const userQuiz = userQuizState.data?.data;
   const quiz = userQuiz?.quiz;
   const answers = userQuiz?.answers || [];

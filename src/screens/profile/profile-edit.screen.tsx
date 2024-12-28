@@ -50,7 +50,7 @@ export const ProfileEditScreen = () => {
   const [boardClassSelectedIndex, setBoardClassSelectedIndex] =
     React.useState<IndexPath>(new IndexPath(0));
   const dispatch = useAppDispatch();
-  const {user} = useAppSelector(state => state.auth);
+  const {user, token} = useAppSelector(state => state.auth);
 
   const updateUserMutation = useUpdate<IUser>({});
   const phoneInput = useRef<any>(null);
@@ -72,6 +72,11 @@ export const ProfileEditScreen = () => {
         resource: 'users',
         id: user?.id,
         values: newValues,
+        meta: {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       },
       {
         onSuccess: data => {

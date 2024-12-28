@@ -10,7 +10,7 @@ import React, {useEffect} from 'react';
 import {Image, StatusBar, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors, ThemeColorKey} from '../../constants/colors';
-import {CommonActions, useNavigation, useRoute} from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 import {RootStackScreenProps} from '../../navigations/root/types';
 import {RouteNames} from '../../navigations/constants/route.name';
 import {useOne, useUpdate} from '@refinedev/core';
@@ -80,22 +80,33 @@ export const QuizResultScreen: React.FC<
   const styles = useStyleSheet(themedStyle);
 
   useEffect(() => {
-    updateQuizStatus();
-  }, [userQuizId]);
+    if (userQuizId && userQuiz && userQuiz.isCompleted === false) {
+      updateQuizStatus();
+    }
+  }, [userQuiz, userQuizId]);
 
-  const updateQuizStatus = () => {
-    userQuizMutation.mutateAsync({
-      resource: 'user-quizs',
-      id: userQuizId,
-      values: {
-        isCompleted: true,
-      },
-      meta: {
-        headers: {
-          Authorization: `Bearer ${token}`,
+  const updateQuizStatus = async () => {
+    await userQuizMutation.mutate(
+      {
+        resource: 'user-quizs',
+        id: userQuizId,
+        values: {
+          isCompleted: true,
+        },
+        meta: {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
       },
-    });
+      {
+        onSuccess: () => {
+          if (userQuiz) {
+            userQuiz.isCompleted = true;
+          }
+        },
+      },
+    );
   };
 
   const onDonePress = () => {

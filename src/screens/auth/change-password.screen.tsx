@@ -1,8 +1,6 @@
 import {
-  Button,
   Icon,
   Layout,
-  StyleService,
   Text,
   useStyleSheet,
   useTheme,
@@ -13,9 +11,9 @@ import {
   View,
   Keyboard,
   StatusBar,
+  StyleSheet,
 } from 'react-native';
 import * as Yup from 'yup';
-import {Formik, FormikProps} from 'formik';
 import {useNavigation} from '@react-navigation/native';
 import {HeaderBackButton} from '@react-navigation/elements';
 import {useAppSelector} from '../../redux';
@@ -23,24 +21,22 @@ import {RootStackNavigationProp} from '../../navigations/root/types';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FormProvider, useForm} from 'react-hook-form';
 import {LoadingButton} from '../../components/buttons';
-import {Modal} from 'react-native';
 import {InputField} from '../../components/inputs';
 import {ThemeColorKey} from '../../constants/colors';
+import {useApiUrl, useCustomMutation} from '@refinedev/core';
+import Toast from 'react-native-toast-message';
 
 interface FormProps {
-  //currentPassword: string;
   password: string;
   confirmPassword: string;
 }
 
 const initialValues: FormProps = {
-  //currentPassword: '',
   password: '',
   confirmPassword: '',
 };
 
 const validationSchema = Yup.object({
-  //currentPassword: Yup.string().required('Current password is required'),
   password: Yup.string()
     .min(5, 'Password must be at least 5 characters long')
     .required('Password is required'),
@@ -50,11 +46,13 @@ const validationSchema = Yup.object({
 });
 
 export const ChangePasswordScreen = () => {
+  const apiUrl = useApiUrl();
+  const passwordChangeMutation = useCustomMutation<{message: string}>();
   const theme = useTheme();
   const form = useForm<FormProps>({
     defaultValues: initialValues,
   }); //
-  const {user} = useAppSelector(state => state.auth);
+  const {user, token} = useAppSelector(state => state.auth);
   // const [updateUser, {isLoading, isError, error, isSuccess}] =
   //   Api.useUpdateUserMutation();
   const [successModalVisible, setSuccessModalVisible] =
@@ -89,38 +87,48 @@ export const ChangePasswordScreen = () => {
   );
 
   const onSubmit = async (values: FormProps) => {
-    // try {
-    //   Keyboard.dismiss();
-    //   const result = await updateUser({
-    //     id: user?.id!,
-    //     password: values.password,
-    //   }).unwrap();
-    //   if (result) {
-    //     setSuccessModalVisible(true);
-    //     formikRef.current?.resetForm();
-    //   }
-    // } catch (err) {}
-  };
-
-  const onOk = () => {
-    setSuccessModalVisible(false);
-    navigation.goBack();
+    Keyboard.dismiss();
+    passwordChangeMutation.mutate(
+      {
+        url: `${apiUrl}/me/change-password`,
+        method: 'put',
+        values: {
+          newPassword: values.password,
+        },
+        config: {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      },
+      {
+        onSuccess(data, variables, context) {
+          Toast.show({
+            type: 'success',
+            text1: 'Password changed',
+            text2: data.data.message,
+          });
+          form.reset();
+        },
+      },
+    );
   };
 
   return (
     <FormProvider {...form}>
       <SafeAreaView style={styles.container}>
-        <StatusBar
-          backgroundColor={theme[ThemeColorKey.backgroundBasicColor1]}
-          barStyle={'dark-content'}
-        />
-        <View style={styles.backButtonView}>
-          <HeaderBackButton
-            onPress={() => navigation.goBack()}
-            labelStyle={false}
-          />
-        </View>
         <Layout style={styles.layout}>
+          <StatusBar
+            backgroundColor={theme[ThemeColorKey.backgroundBasicColor1]}
+            barStyle={'dark-content'}
+          />
+          <View style={styles.backButtonView}>
+            <HeaderBackButton
+              onPress={() => navigation.goBack()}
+              labelStyle={false}
+            />
+          </View>
+
           <Text category="h2" style={styles.heading1}>
             Change Password
           </Text>
@@ -154,37 +162,23 @@ export const ChangePasswordScreen = () => {
                   value === form.getValues('password') ||
                   'Passwords do not match',
               }}
-              secureTextEntry={secureTextEntry}
-              accessoryRight={renderPasswordIcon}
+              secureTextEntry={confirmSecureTextEntry}
+              accessoryRight={renderConfirmPasswordIcon}
             />
             <LoadingButton
-              loading={false}
+              loading={passwordChangeMutation.isLoading}
               onPress={form.handleSubmit(onSubmit)}
               style={{marginTop: 20}}>
-              Reset Password
+              Change Password
             </LoadingButton>
           </View>
         </Layout>
-        {/* <Modal
-        visible={successModalVisible}
-        onBackdropPress={() => setSuccessModalVisible(false)}>
-        <SuccessPassword />
-        <Text category="h5" style={styles.h}>
-          Successful
-        </Text>
-        <Text category="p1" style={styles.p}>
-          Your password has been updated successfully.
-        </Text>
-        <Button onPress={onOk} style={styles.button}>
-          {'Ok'}
-        </Button>
-      </Modal> */}
       </SafeAreaView>
     </FormProvider>
   );
 };
 
-const themedStyle = StyleService.create({
+const themedStyle = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -192,13 +186,11 @@ const themedStyle = StyleService.create({
     flex: 1,
     padding: 20,
     flexDirection: 'column',
-    alignItems: 'center',
   },
-  backButtonView: {
-    paddingHorizontal: 20,
-  },
+  backButtonView: {},
   heading1: {
     color: 'color-primary-500',
+    alignSelf: 'center',
   },
   description: {
     textAlign: 'center',

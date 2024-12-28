@@ -5,7 +5,7 @@ export const notificationProvider: NotificationProvider = {
   open: (params: OpenNotificationParams) => {
     Toast.show({
       type: params.type,
-      text1: params.message,
+      text1: params.message === 'AxiosError' ? 'OOPS!' : params.message,
       text2: params.description,
     });
   },

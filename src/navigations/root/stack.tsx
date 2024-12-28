@@ -3,7 +3,7 @@ import React from 'react';
 import {RootStackParamList} from './types';
 import {RouteNames} from '../constants/route.name';
 import {LoginScreen} from '../../screens/auth/login.screen';
-import {ForgotPasswordScreen} from '../../screens/forgot-password/forgot-password.screen';
+import {ForgotPasswordScreen} from '../../screens/auth/forgot-password.screen';
 import {SignUpScreen} from '../../screens/auth/signup.screen';
 import {HomeDrawer} from '../home-drawer/drawer';
 import {SubjectShowScreen} from '../../screens/subjects/subject.show.screen';
@@ -14,7 +14,7 @@ import {QuestionShowScreen} from '../../screens/questions/question.show.screen';
 import {TopicShowScreen} from '../../screens/topics/topic.show.screen';
 import {VideoScreen} from '../../screens/video';
 import {QuizScreen} from '../../screens/quiz/quiz.screen';
-import {QuizShowScreen} from '../../screens/quiz/quiz.,show.screen';
+import {QuizShowScreen} from '../../screens/quiz/quiz.show.screen';
 import {ProfileEditScreen} from '../../screens/profile/profile-edit.screen';
 import {PastPaperScreen} from '../../screens/past-papers/past-papers';
 import {PastPaperShowScreen} from '../../screens/past-papers/show.screen';
@@ -134,6 +134,11 @@ export const RootStack = () => {
         <Stack.Screen
           name={RouteNames.quizResult}
           component={QuizResultScreen}
+          options={{
+            headerShown: true,
+            title: 'Good Job!',
+            //headerStyle: styles.headerStyle as any,
+          }}
         />
         <Stack.Screen
           name={RouteNames.quizShow}

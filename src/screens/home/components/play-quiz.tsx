@@ -9,12 +9,16 @@ import {QuizIcon} from '../../../components/svgs';
 import {useAppSelector} from '../../../redux';
 import {useList} from '@refinedev/core';
 import {QueryContainer} from '../../../components/containers';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../../navigations/root/types';
+import {RouteNames} from '../../../navigations/constants/route.name';
 
 type IProps = {};
 
 export const PlayQuizView: React.FC<IProps> = ({}) => {
   const styles = useStyleSheet(themedStyle);
   const {user} = useAppSelector(state => state.auth);
+  const navigation = useNavigation<RootStackNavigationProp<any>>();
 
   const userQuizState = useList<IUserQuiz>({
     resource: 'user-quizs',
@@ -34,7 +38,7 @@ export const PlayQuizView: React.FC<IProps> = ({}) => {
       },
     ],
     meta: {
-      join: [{field: 'answers'}],
+      join: [{field: 'answers'}, {field: 'quiz'}],
     },
   });
 
@@ -51,7 +55,12 @@ export const PlayQuizView: React.FC<IProps> = ({}) => {
 
   const isQuizFound = randomUserQuiz !== undefined && userQuizState.isFetched;
 
-  const onPlayQuiz = () => {};
+  const onPlayQuiz = () => {
+    navigation.navigate(RouteNames.quiz, {
+      quizId: randomUserQuiz!.quizId,
+      userQuiz: randomUserQuiz,
+    });
+  };
 
   const renderTitle = (
     <View style={styles.titleView}>
@@ -75,8 +84,9 @@ export const PlayQuizView: React.FC<IProps> = ({}) => {
             <View style={styles.content}>
               <View style={{flex: 1}}>
                 {renderTitle}
-                {/* <Text style={styles.description}>{quiz?.title}</Text> */}
-                <Text style={styles.description}>Title</Text>
+                <Text style={styles.description}>
+                  {randomUserQuiz.quiz?.title}
+                </Text>
               </View>
               <View style={styles.arrowButton}>
                 <Icon

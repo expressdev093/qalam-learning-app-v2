@@ -41,6 +41,8 @@ export const QuizCheckCorrectAnswerScreen: React.FC<
     ?.map(mcq => mcq.options.filter(op => op.isCorrect))
     .flatMap(innerArray => innerArray);
 
+  console.log(quizId, mcqs);
+
   return (
     <Layout style={styles.container}>
       <StatusBar
