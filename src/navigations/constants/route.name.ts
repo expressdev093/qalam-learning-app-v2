@@ -12,6 +12,7 @@ export enum RouteNames {
   contactUs = 'ContactUs',
   home = 'Home',
   homeTab = 'HomeTab',
+  homeDrawerProfile = 'HomeDrawerProfile',
   rootProfile = 'RootProfile',
   profile = 'Profile',
   profileTab = 'ProfileTab',

@@ -1,116 +1,83 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {PlatformPressable} from '@react-navigation/elements';
 import {Avatar, useStyleSheet} from '@ui-kitten/components';
-import {check, PERMISSIONS, RESULTS, request} from 'react-native-permissions';
-
-import {Platform} from 'react-native';
 import {IS_ANDROID} from '../../../constants/platform';
-import ImagePicker, {ImageOrVideo} from 'react-native-image-crop-picker';
-import {BASE_URL} from '@env';
 import {useAppDispatch, useAppSelector} from '../../../redux';
 import {AuthActions} from '../../../redux/reducers/auth.reducer';
 import {Icon} from '../../../components/icon';
 import {CircleSvg} from '../../../components/circle-svg';
+import useImagePicker from '../../../hooks/use-image-picker';
+import Toast from 'react-native-toast-message';
+import Config from 'react-native-config';
 
 export const ProfilePicture = () => {
+  const {
+    handleUploadImage,
+    resetImage,
+    image,
+    loading,
+    permissionGranted,
+    requestPermission,
+    pickImage,
+    captureImage,
+  } = useImagePicker();
   const {user, token} = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
-  const url = user?.avatar?.includes('upload')
-    ? `${BASE_URL}/${user.avatar}`
+  const url = user?.avatar?.includes('uploads')
+    ? `${Config.BASE_URL}/${user.avatar}`
     : user?.avatar;
   const [uploadProgress, setUploadProgress] = React.useState<number>(0);
 
   const styles = useStyleSheet(themedStyle);
 
-  async function requestCameraPermission(): Promise<boolean> {
-    const permission = Platform.select({
-      ios: PERMISSIONS.IOS.CAMERA,
-      android: PERMISSIONS.ANDROID.CAMERA,
-    });
-
-    const result = await check(permission as any);
-
-    if (result === RESULTS.GRANTED) {
-      return true;
+  const handleImagePicker = async () => {
+    const hasPermission = await requestPermission('gallery');
+    if (hasPermission) {
+      pickImage();
     }
+  };
 
-    const requestResult = await request(permission as any);
-
-    return requestResult === RESULTS.GRANTED;
-  }
-
-  async function requestPhotoLibraryPermission(): Promise<boolean> {
-    const permission: any = Platform.select({
-      ios: PERMISSIONS.IOS.PHOTO_LIBRARY,
-      android: PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
-    });
-
-    const result = await check(permission);
-
-    if (result === RESULTS.GRANTED) {
-      return true;
+  useEffect(() => {
+    if (image) {
+      handleUpload();
     }
+  }, [image]);
 
-    const requestResult = await request(permission);
-
-    return requestResult === RESULTS.GRANTED;
-  }
-
-  async function handleImagePicker() {
-    //const cameraPermission = await requestCameraPermission();
-    const photoLibraryPermission = await requestPhotoLibraryPermission();
-
-    if (!photoLibraryPermission) {
-      console.log('Permission denied');
-      return;
-    }
-
-    try {
-      const image = await ImagePicker.openPicker({
-        width: 300,
-        height: 400,
-        cropping: true,
-      });
-
-      handleUpload(image);
-    } catch (err) {}
-  }
-
-  const handleUpload = async (image?: ImageOrVideo) => {
-    if (!image) {
-      return;
-    }
-
+  const handleUpload = async () => {
     const formData = new FormData();
     const file = {
       uri: IS_ANDROID
-        ? image.sourceURL
-        : image.sourceURL?.toString().replace('file://', ''),
-      type: image.mime,
-      name: image.filename,
+        ? image?.path
+        : image?.path?.toString().replace('file://', ''),
+      type: image?.mime,
+      name: image?.filename,
     };
-    console.log(JSON.stringify(file, null, 2));
     formData.append('file', file);
 
     try {
-      // const response = await handleUploadAvatar(
-      //   formData,
-      //   token ?? '',
-      //   upload => {
-      //     if (upload.total) {
-      //       let progress = Math.round((100 * upload.loaded) / upload.total);
-      //       setUploadProgress(progress);
-      //     } else {
-      //       setUploadProgress(0);
-      //     }
-      //   },
-      // );
-      // if (response.data) {
-      //   dispatch(AuthActions.updateAvatar(response.data.path));
-      // }
-    } catch (err) {
-      console.log(err);
+      const response = await handleUploadImage(formData, token!, upload => {
+        if (upload.total) {
+          let progress = Math.round((100 * upload.loaded) / upload.total);
+          setUploadProgress(progress);
+        } else {
+          setUploadProgress(0);
+        }
+      });
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Profile picture changed successfully',
+      });
+      dispatch(AuthActions.updateAvatar(response.data));
+      resetImage();
+    } catch (err: any) {
+      Toast.show({
+        type: 'error',
+        text1: 'OOPS',
+        text2: "Can't upload profile picture. Please try again later.",
+      });
     }
   };
 
@@ -127,7 +94,7 @@ export const ProfilePicture = () => {
         <Avatar
           source={{uri: url}}
           size="giant"
-          style={{height: 110, width: 110}}
+          style={{height: 110, width: 110, objectFit: 'cover'}}
         />
       </CircleSvg>
       {renderEditButton}

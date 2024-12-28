@@ -33,7 +33,14 @@ export const HomeDrawer = ({}) => {
       drawerContent={HomeDrawerContent}
       initialRouteName={RouteNames.homeTabar}>
       <Drawer.Screen name={RouteNames.homeTabar} component={HomeBottomTabBar} />
-      <Drawer.Screen name={RouteNames.profile} component={ProfileScreen} />
+      <Drawer.Screen
+        name={RouteNames.homeDrawerProfile}
+        component={ProfileScreen}
+        options={{headerShown: true, title: 'Profile'}}
+        initialParams={{
+          statusBarBackgroundColor: '#fff',
+        }}
+      />
       <Drawer.Screen
         name={RouteNames.notifications}
         component={NotificationScreen}

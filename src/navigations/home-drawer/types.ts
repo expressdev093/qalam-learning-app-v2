@@ -8,7 +8,7 @@ import {WebsiteContentType} from '../../interfaces/enum';
 
 export type HomeDrawerParamList = {
   [RouteNames.homeTabar]: undefined;
-  [RouteNames.profile]: undefined;
+  [RouteNames.homeDrawerProfile]: {statusBarBackgroundColor?: string};
   [RouteNames.notifications]: undefined;
   [RouteNames.favorites]: undefined;
   [RouteNames.aboutUs]: {type: WebsiteContentType};

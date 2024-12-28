@@ -9,7 +9,7 @@ import {
 import React from 'react';
 import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../../redux';
-import {CommonActions, useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation, useRoute} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../navigations/root/types';
 import {Icon} from '../../components/icon';
 import {AuthActions} from '../../redux/reducers/auth.reducer';
@@ -23,6 +23,10 @@ export const ProfileScreen = () => {
   const theme = useTheme();
   const {user} = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
+  const route = useRoute<any>();
+  const {statusBarBackgroundColor} = route.params || {
+    statusBarBackgroundColor: undefined,
+  };
   const navigation = useNavigation<RootStackNavigationProp<any>>();
   const styles = useStyleSheet(themedStyle);
 
@@ -59,7 +63,9 @@ export const ProfileScreen = () => {
   return (
     <Layout style={styles.container}>
       <FocusAwareStatusBar
-        backgroundColor={theme[ThemeColorKey.backgroundBasicColor1]}
+        backgroundColor={
+          statusBarBackgroundColor || theme[ThemeColorKey.backgroundBasicColor1]
+        }
         barStyle="dark-content"
       />
       <View style={styles.profileCard}>
