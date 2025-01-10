@@ -13,6 +13,7 @@ const customDataProvider = () => {
       //Authorization: `Bearer ${localStorage.getItem(TOKEN_KEY)}`,
       'Content-Type': 'application/json',
       'x-api-key':
+        Config.API_KEY ||
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYWNrYWdlTmFtZSI6ImNvbS5uYWplZWIubWFydC5waGFybWFjeS5zaG9wcGluZy5vbmxpbmUuZnJlZS5kZWxpdmVyeS5ncm9jZXJ5IiwiaWF0IjoxNjAxNDYyNDYyfQ.J_UBlexExMk65-4d8kEL6uKL5Ka9FP3i6aU1WkWS2JQ',
     };
     return config;

@@ -16,13 +16,13 @@ interface FormProps {
   email: string;
 }
 
-const initialValues: FormProps = {
-  email: 'amrafridi.29@gmail.com',
-};
-
 // const initialValues: FormProps = {
-//   email: '',
+//   email: 'amrafridi.29@gmail.com',
 // };
+
+const initialValues: FormProps = {
+  email: '',
+};
 
 const validationSchema = Yup.object({
   email: Yup.string().email('Invalid Email').required('Email is required'),
