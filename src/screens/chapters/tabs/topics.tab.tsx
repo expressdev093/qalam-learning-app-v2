@@ -1,41 +1,45 @@
-import {Layout, Text} from '@ui-kitten/components';
+import {Layout} from '@ui-kitten/components';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {ChapterTabScreenProps} from '../tabbar/types';
 import {RouteNames} from '../../../navigations/constants/route.name';
 import {useList} from '@refinedev/core';
-import {ITopic, ITopicVideo, ITopicVideosView} from '../../../interfaces';
+import {ITopic, ITopicVideo} from '../../../interfaces';
 import {TopicsVerticalList} from '../../topics/lists/vertical/list.vertical';
 import {QueryContainer} from '../../../components/containers';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../../navigations/root/types';
-import {Utils} from '../../../constants/utils';
 
 export const ChapterTopicTab: React.FC<
   ChapterTabScreenProps<RouteNames.chapterTopicsTab>
-> = ({navigation, route}) => {
+> = ({route}) => {
   const rootNavigation = useNavigation<RootStackNavigationProp<any>>();
   const {chapterId} = route.params;
-  const topicState = useList<ITopic>({
-    resource: 'topics',
+
+  const topicVideoState = useList<ITopicVideo>({
+    resource: 'topic-videos',
     filters: [
       {
-        field: 'chapterId',
+        field: 'topic.chapterId',
         operator: 'eq',
         value: chapterId,
+      },
+      {
+        field: 'isActive',
+        operator: 'eq',
+        value: true,
       },
     ],
     meta: {
       join: [
-        {field: 'videos'},
-        {field: 'chapter', select: ['id', 'name']},
-        {field: 'subject', select: ['id', 'name', 'image']},
+        {field: 'topic'},
+        {field: 'topic.chapter', select: ['id', 'name']},
+        {field: 'topic.subject', select: ['id', 'name', 'image']},
       ],
     },
   });
 
-  const topics = topicState.data?.data || [];
-  const topicVideos = Utils.mapTopicVideos(topics);
+  const topicVideos = topicVideoState.data?.data || [];
 
   const onTopicItemClick = (topic: ITopic) => {
     rootNavigation.navigate(RouteNames.topicShow, {
@@ -59,9 +63,9 @@ export const ChapterTopicTab: React.FC<
   return (
     <Layout style={styles.container}>
       <QueryContainer
-        isError={topicState.isError}
-        isLoading={topicState.isLoading}
-        error={topicState.error}
+        isError={topicVideoState.isError}
+        isLoading={topicVideoState.isLoading}
+        error={topicVideoState.error}
         isEmpty={topicVideos.length === 0}>
         <TopicsVerticalList
           onTopicItemClick={onTopicItemClick}

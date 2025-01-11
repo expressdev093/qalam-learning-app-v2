@@ -4,7 +4,12 @@ import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {RelatedChapterVideoItemVertical} from './item.vertical';
 import {useNavigation} from '@react-navigation/native';
 import {useList} from '@refinedev/core';
-import {ITopic, ITopicVideosView, IVideo} from '../../../../interfaces';
+import {
+  ITopic,
+  ITopicVideo,
+  ITopicVideosView,
+  IVideo,
+} from '../../../../interfaces';
 import {Utils} from '../../../../constants/utils';
 import {QueryContainer} from '../../../../components/containers';
 import {emptyImage} from '../../../../components/svgs';
@@ -19,14 +24,37 @@ export const RelatedChapterVideoVerticalList: React.FC<IProps> = ({
   chapterId,
 }) => {
   const navigation = useNavigation<RootStackNavigationProp<any>>();
-  const topicState = useList<ITopic>({
-    resource: 'topics',
-    queryOptions: {
-      enabled: !!chapterId,
-    },
+  // const topicState = useList<ITopic>({
+  //   resource: 'topics',
+  //   queryOptions: {
+  //     enabled: !!chapterId,
+  //   },
+  //   filters: [
+  //     {
+  //       field: 'chapterId',
+  //       operator: 'eq',
+  //       value: chapterId,
+  //     },
+  //     {
+  //       field: 'isActive',
+  //       operator: 'eq',
+  //       value: true,
+  //     },
+  //   ],
+  //   meta: {
+  //     join: [
+  //       {field: 'videos'},
+  //       {field: 'chapter', select: ['id', 'name']},
+  //       {field: 'subject', select: ['id', 'name', 'image']},
+  //     ],
+  //   },
+  // });
+
+  const topicVideoState = useList<ITopicVideo>({
+    resource: 'topic-videos',
     filters: [
       {
-        field: 'chapterId',
+        field: 'topic.chapterId',
         operator: 'eq',
         value: chapterId,
       },
@@ -38,22 +66,21 @@ export const RelatedChapterVideoVerticalList: React.FC<IProps> = ({
     ],
     meta: {
       join: [
-        {field: 'videos'},
-        {field: 'chapter', select: ['id', 'name']},
-        {field: 'subject', select: ['id', 'name', 'image']},
+        {field: 'topic'},
+        {field: 'topic.chapter', select: ['id', 'name']},
+        {field: 'topic.subject', select: ['id', 'name', 'image']},
       ],
     },
   });
 
-  const topics = topicState.data?.data || [];
-  const topicVideos = Utils.mapTopicVideos(topics);
+  const topicVideos = topicVideoState.data?.data || [];
   const styles = useStyleSheet(themedStyle);
 
-  const onItemClick = (topicVideoView: ITopicVideosView) => {
+  const onItemClick = (topicVideo: ITopicVideo) => {
     navigation.navigate(RouteNames.video, {
       video: {
         entityName: 'topic-videos',
-        entityId: topicVideoView.id,
+        entityId: topicVideo.id,
         // url: BASE_URL + '/' + appCorner.video,
         // thumbnailUrl: BASE_URL + '/' + appCorner.videoThumbnail,
         // title: appCorner.title,
@@ -64,9 +91,9 @@ export const RelatedChapterVideoVerticalList: React.FC<IProps> = ({
 
   return (
     <QueryContainer
-      error={topicState.error}
-      isError={topicState.isError}
-      isLoading={topicState.isLoading}
+      error={topicVideoState.error}
+      isError={topicVideoState.isError}
+      isLoading={topicVideoState.isLoading}
       isEmpty={topicVideos.length === 0}
       emptyViewProps={{
         title: 'No related video found',
@@ -75,15 +102,12 @@ export const RelatedChapterVideoVerticalList: React.FC<IProps> = ({
       <FlatList
         style={styles.conatiner}
         data={topicVideos}
-        keyExtractor={item => `${item.id}-${item.videoId}`}
+        keyExtractor={item => `${item.id}`}
         renderItem={({item, index}) => (
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => onItemClick(item)}>
-            <RelatedChapterVideoItemVertical
-              key={index}
-              topicVideoView={item}
-            />
+            <RelatedChapterVideoItemVertical key={index} topicVideo={item} />
           </TouchableOpacity>
         )}
         ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}

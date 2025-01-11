@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import {BASE_URL} from '@env';
-import {ITopicVideosView} from '../../../../interfaces';
+import {IFavoriteVideo} from '../../../../interfaces';
 import {useAppDispatch} from '../../../../redux';
 import {FavoriteActions} from '../../../../redux/reducers/favorite.reducer';
 import {Icon} from '../../../../components/icon';
@@ -15,16 +15,25 @@ import {Colors} from '../../../../constants/colors';
 import {Utils} from '../../../../constants/utils';
 
 type IProps = {
-  topicVideoView: ITopicVideosView;
+  favoriteVideo: IFavoriteVideo;
+  onHandleRemoveFavoriteVideo?: (favoriteVideo: IFavoriteVideo) => void;
 };
 
-export const FavoriteItemVertical: React.FC<IProps> = ({topicVideoView}) => {
-  const dispatch = useAppDispatch();
+export const FavoriteItemVertical: React.FC<IProps> = ({
+  favoriteVideo,
+  onHandleRemoveFavoriteVideo,
+}) => {
   const styles = useStyleSheet(themedStyle);
+  const {topicVideo} = favoriteVideo;
+
   return (
     <View style={styles.conatiner}>
       <ImageBackground
-        source={{uri: BASE_URL + '/' + topicVideoView.subjectImage}}
+        source={{
+          uri:
+            BASE_URL + '/' + topicVideo?.topic?.subject?.image ||
+            topicVideo?.topic?.subject?.placeholderUrl,
+        }}
         resizeMode="stretch"
         style={styles.imageBg}>
         <View style={styles.overlay}>
@@ -36,11 +45,11 @@ export const FavoriteItemVertical: React.FC<IProps> = ({topicVideoView}) => {
       <View style={styles.content}>
         <View style={styles.row}>
           <View style={styles.labelView}>
-            <Text style={styles.label}>{topicVideoView.subjectName}</Text>
+            <Text style={styles.label}>{topicVideo?.topic?.subject?.name}</Text>
           </View>
           <TouchableOpacity
             activeOpacity={0.7}
-            onPress={() => dispatch(FavoriteActions.remove(topicVideoView.id))}>
+            onPress={() => onHandleRemoveFavoriteVideo?.(favoriteVideo)}>
             <Icon
               name={'bookmark-minus'}
               size={28}
@@ -49,14 +58,14 @@ export const FavoriteItemVertical: React.FC<IProps> = ({topicVideoView}) => {
             />
           </TouchableOpacity>
         </View>
-        <Text style={styles.title}>{topicVideoView.videoTitle}</Text>
+        <Text style={styles.title}>{topicVideo?.title}</Text>
         <View style={styles.row}>
           <Text
             style={styles.description}
             category="p1"
             numberOfLines={2}
             ellipsizeMode="tail">
-            {Utils.removeHtmlTags(topicVideoView.videoDescription)}
+            {Utils.removeHtmlTags(topicVideo?.description)}
           </Text>
           <View style={styles.clockView}>
             <Icon

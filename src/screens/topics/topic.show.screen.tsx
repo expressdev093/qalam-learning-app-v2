@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
 import {RootStackScreenProps} from '../../navigations/root/types';
 import {RouteNames} from '../../navigations/constants/route.name';
-import HtmlView from '../../components/htmlview';
+import HtmlView from '../../components/htmlview/html.view';
 
 export const TopicShowScreen: React.FC<
   RootStackScreenProps<RouteNames.topicShow>

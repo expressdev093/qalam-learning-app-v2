@@ -8,7 +8,7 @@ import {ITopic, ITopicVideo, ITopicVideosView} from '../../../../interfaces';
 type Props = {
   onTopicItemClick?: (topic: ITopic) => void;
   onPlayVideoClick?: (topicVideo: ITopicVideo) => void;
-  topicVideos: ITopicVideosView[];
+  topicVideos: ITopicVideo[];
 };
 
 export const TopicsVerticalList: React.FC<Props> = ({
@@ -22,11 +22,11 @@ export const TopicsVerticalList: React.FC<Props> = ({
     <FlatList
       style={styles.flatList}
       data={topicVideos}
-      keyExtractor={item => `${item.id}-${item.videoId}`}
+      keyExtractor={item => `${item.id}`}
       renderItem={({item, index}) => (
         <TopicItemVertical
-          key={`${item.id}-${item.videoId}`}
-          topicVideoView={item}
+          key={`${item.id}`}
+          topicVideo={item}
           onTopicItemClick={onTopicItemClick}
           onPlayVideoClick={onPlayVideoClick}
         />

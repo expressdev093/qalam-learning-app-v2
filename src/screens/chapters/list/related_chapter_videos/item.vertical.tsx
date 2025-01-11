@@ -1,37 +1,44 @@
 import {Text, useStyleSheet} from '@ui-kitten/components';
 import React from 'react';
 import {
+  ActivityIndicator,
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {BASE_URL} from '@env';
-import {ITopicVideosView} from '../../../../interfaces';
-import {useDispatch} from 'react-redux';
-import {useAppSelector} from '../../../../redux';
+import {ITopicVideo} from '../../../../interfaces';
 import {Icon} from '../../../../components/icon';
 import {Colors} from '../../../../constants/colors';
 import {Utils} from '../../../../constants/utils';
+import {useAppSelector} from '../../../../redux';
+import {useFavoriteVideo} from '../../../../hooks/useFavoriteVideo';
 
 type IProps = {
-  topicVideoView: ITopicVideosView;
+  topicVideo: ITopicVideo;
 };
 
 export const RelatedChapterVideoItemVertical: React.FC<IProps> = ({
-  topicVideoView,
+  topicVideo,
 }) => {
-  const dispatch = useDispatch();
-  // const {topicVideoViews: favoriteTopicVideos, isFavoriteLoaded} =
-  //   useAppSelector(state => state.favorites);
+  const {isFavorite, handleAddFavoriteVideo, handleRemoveFavorite, isLoading} =
+    useFavoriteVideo();
   const styles = useStyleSheet(themedStyle);
 
-  const isFavorite = false; // favoriteTopicVideos.find(f => f.id === topicVideoView.id) !== undefined;
-  const bookmarkIcon = isFavorite ? 'bookmark-minus' : 'bookmark-minus-outline';
+  const isFavorited = isFavorite(topicVideo.id);
+
+  const bookmarkIcon = isFavorited
+    ? 'bookmark-minus'
+    : 'bookmark-minus-outline';
   return (
     <View style={styles.conatiner}>
       <ImageBackground
-        source={{uri: BASE_URL + '/' + topicVideoView.subjectImage}}
+        source={{
+          uri:
+            BASE_URL + '/' + topicVideo.topic?.subject?.image ||
+            topicVideo.topic?.subject?.placeholderUrl,
+        }}
         resizeMode="stretch"
         style={styles.imageBg}>
         <View style={styles.overlay}>
@@ -43,32 +50,35 @@ export const RelatedChapterVideoItemVertical: React.FC<IProps> = ({
       <View style={styles.content}>
         <View style={styles.row}>
           <View style={styles.labelView}>
-            <Text style={styles.label}>{topicVideoView.subjectName}</Text>
+            <Text style={styles.label}>{topicVideo.topic?.subject?.name}</Text>
           </View>
           <TouchableOpacity
             activeOpacity={0.7}
-            // onPress={() =>
-            //   isFavorite
-            //     ? dispatch(removeFavorites(topicVideoView.id))
-            //     : dispatch(addFavroites(topicVideoView))
-            // }
-          >
-            <Icon
-              name={bookmarkIcon}
-              size={28}
-              pack="material-community"
-              color={Colors.primary}
-            />
+            onPress={() =>
+              isFavorited
+                ? handleRemoveFavorite(topicVideo.id)
+                : handleAddFavoriteVideo(topicVideo.id)
+            }>
+            {isLoading ? (
+              <ActivityIndicator size={'small'} />
+            ) : (
+              <Icon
+                name={bookmarkIcon}
+                size={28}
+                pack="material-community"
+                color={Colors.primary}
+              />
+            )}
           </TouchableOpacity>
         </View>
-        <Text style={styles.title}>{topicVideoView.videoTitle}</Text>
+        <Text style={styles.title}>{topicVideo.title}</Text>
         <View style={styles.row}>
           <Text
             style={styles.description}
             category="p1"
             numberOfLines={2}
             ellipsizeMode="tail">
-            {Utils.removeHtmlTags(topicVideoView.videoDescription)}
+            {Utils.removeHtmlTags(topicVideo.description)}
           </Text>
           <View style={styles.clockView}>
             <Icon

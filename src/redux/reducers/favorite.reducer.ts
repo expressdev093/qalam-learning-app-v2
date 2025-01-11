@@ -1,42 +1,42 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ITopicVideo, ITopicVideosView, IUser} from '../../interfaces';
+import {IFavoriteVideo} from '../../interfaces';
 
 export interface FavoriteState {
   isFavoriteLoaded: boolean;
-  topicVideoViews: ITopicVideosView[];
+  favoriteVideos: IFavoriteVideo[];
 }
 
 const initialState: FavoriteState = {
   isFavoriteLoaded: false,
-  topicVideoViews: [],
+  favoriteVideos: [],
 };
 
 const favoriteSlice = createSlice({
-  name: 'favorites-topic-videos',
+  name: 'favorites-videos',
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<ITopicVideosView>) => {
+    add: (state, action: PayloadAction<IFavoriteVideo>) => {
       const isNotExist =
-        state.topicVideoViews.find(item => item.id === action.payload.id) ===
+        state.favoriteVideos.find(item => item.id === action.payload.id) ===
         undefined;
       if (isNotExist) {
         state.isFavoriteLoaded = false;
-        state.topicVideoViews = [action.payload, ...state.topicVideoViews];
+        state.favoriteVideos = [action.payload, ...state.favoriteVideos];
       }
     },
-    addList: (state, action: PayloadAction<ITopicVideosView[]>) => {
+    addList: (state, action: PayloadAction<IFavoriteVideo[]>) => {
       state.isFavoriteLoaded = true;
-      state.topicVideoViews = action.payload;
+      state.favoriteVideos = action.payload;
     },
     remove: (state, action: PayloadAction<number>) => {
       state.isFavoriteLoaded = false;
-      state.topicVideoViews = state.topicVideoViews.filter(
+      state.favoriteVideos = state.favoriteVideos.filter(
         v => v.id !== action.payload,
       );
     },
     reset: state => {
       state.isFavoriteLoaded = false;
-      state.topicVideoViews = [];
+      state.favoriteVideos = [];
     },
   },
 });

@@ -1,3 +1,4 @@
+import {HttpError} from '@refinedev/core';
 import {ITopic, ITopicVideosView} from '../interfaces';
 
 export class Utils {
@@ -94,5 +95,13 @@ export class Utils {
     });
 
     return result;
+  }
+
+  static getErrorMessage(error: HttpError): string {
+    const errorMessage = Object.values(error.errors as any)
+      .flat()
+      .join('');
+
+    return errorMessage;
   }
 }

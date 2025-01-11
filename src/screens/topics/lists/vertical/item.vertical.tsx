@@ -10,58 +10,24 @@ import {Colors} from '../../../../constants/colors';
 import {Icon} from '../../../../components/icon';
 
 type IProps = {
-  topicVideoView: ITopicVideosView;
+  topicVideo: ITopicVideo;
   onPlayVideoClick?: (topicVideo: ITopicVideo) => void;
   onTopicItemClick?: (topic: ITopic) => void;
 };
 
 export const TopicItemVertical: React.FC<IProps> = ({
-  topicVideoView,
+  topicVideo,
   onTopicItemClick,
   onPlayVideoClick,
 }) => {
-  const {
-    id,
-    name,
-    description,
-    chapterId,
-    subjectId,
-    isActive,
-    videoId,
-    videoTitle,
-    videoDescription,
-    videoUrl,
-    videoThumbnail,
-    videoViews,
-  } = topicVideoView;
-
-  const topic: ITopic = {
-    id: id,
-    name: name,
-    description: description,
-    chapterId: chapterId,
-    subjectId: subjectId,
-    videos: [],
-    isActive: isActive,
-  };
-
-  const topicVideo: ITopicVideo = {
-    id: videoId,
-    title: videoTitle,
-    description: videoDescription,
-    url: videoUrl,
-    thumbnail: videoThumbnail,
-    isActive: true,
-    topicId: id,
-    views: videoViews,
-  };
+  const {topic, title, description} = topicVideo;
 
   const styles = useStyleSheet(themedStyle);
   return (
     <View style={styles.container}>
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => onTopicItemClick?.(topic)}>
+        onPress={() => onTopicItemClick?.(topic!)}>
         <LinearGradient
           colors={Colors.gradientSecondaryColors}
           useAngle
@@ -70,7 +36,7 @@ export const TopicItemVertical: React.FC<IProps> = ({
           <Image source={personImage} style={{alignSelf: 'flex-end'}} />
           <View style={{flex: 1}}>
             <Text category="h5" style={styles.colorWhite}>
-              {name}
+              {topic?.name}
             </Text>
             <Text
               style={[styles.colorWhite, styles.topicDescription]}
@@ -94,12 +60,12 @@ export const TopicItemVertical: React.FC<IProps> = ({
         </View>
 
         <View style={{flex: 1}}>
-          <Text style={styles.title}>{videoTitle}</Text>
+          <Text style={styles.title}>{title}</Text>
           <Text
             style={styles.description}
             numberOfLines={2}
             ellipsizeMode="tail">
-            {videoDescription}
+            {description}
           </Text>
         </View>
       </TouchableOpacity>

@@ -1,10 +1,11 @@
 import React, {Fragment, PropsWithChildren} from 'react';
 import {IIconProps, Icon} from '../icon';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {ActivityIndicator, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text, useStyleSheet} from '@ui-kitten/components';
 
 type IProps = PropsWithChildren &
   IIconProps & {
+    isLoading?: boolean;
     isActive?: boolean;
     text?: string | number;
     backgroundColor?: string;
@@ -17,6 +18,7 @@ export const VideoStateButton: React.FC<IProps> = ({
   text,
   backgroundColor,
   onPress,
+  isLoading,
   ...iconProps
 }) => {
   const styles = useStyleSheet(themedStyle);
@@ -34,10 +36,11 @@ export const VideoStateButton: React.FC<IProps> = ({
 
   return (
     <TouchableOpacity
+      disabled={isLoading}
       activeOpacity={0.7}
       onPress={onPress}
       style={[styles.container, isActive && styles.active]}>
-      {renderContent}
+      {isLoading ? <ActivityIndicator size="small" /> : renderContent}
     </TouchableOpacity>
   );
 };

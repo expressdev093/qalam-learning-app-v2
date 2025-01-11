@@ -32,3 +32,4 @@ export * from './video-like.interface';
 export * from './continue-study.interface';
 export * from './recently-learn-video.interface';
 export * from './website-content.interface';
+export * from './favorite-video.interface';
