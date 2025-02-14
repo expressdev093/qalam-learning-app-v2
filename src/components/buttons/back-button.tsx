@@ -6,7 +6,7 @@ import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 export const BackButton: React.FC<TouchableOpacityProps> = props => {
   const name = IS_IOS ? 'arrow-back-ios' : 'arrow-back';
   return (
-    <TouchableOpacity {...props}>
+    <TouchableOpacity {...props} style={[{marginTop: 10}, props.style]}>
       <Icon name={name} pack="material" color="black" />
     </TouchableOpacity>
   );

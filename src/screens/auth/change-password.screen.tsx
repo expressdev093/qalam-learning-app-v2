@@ -20,11 +20,12 @@ import {useAppSelector} from '../../redux';
 import {RootStackNavigationProp} from '../../navigations/root/types';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FormProvider, useForm} from 'react-hook-form';
-import {LoadingButton} from '../../components/buttons';
+import {BackButton, LoadingButton} from '../../components/buttons';
 import {InputField} from '../../components/inputs';
-import {ThemeColorKey} from '../../constants/colors';
+import {Colors, ThemeColorKey} from '../../constants/colors';
 import {useApiUrl, useCustomMutation} from '@refinedev/core';
 import Toast from 'react-native-toast-message';
+import {RouteNames} from '../../navigations/constants/route.name';
 
 interface FormProps {
   password: string;
@@ -109,6 +110,7 @@ export const ChangePasswordScreen = () => {
             text2: data.data.message,
           });
           form.reset();
+          navigation.navigate(RouteNames.homeDrawer);
         },
       },
     );
@@ -123,10 +125,7 @@ export const ChangePasswordScreen = () => {
             barStyle={'dark-content'}
           />
           <View style={styles.backButtonView}>
-            <HeaderBackButton
-              onPress={() => navigation.goBack()}
-              labelStyle={false}
-            />
+            <BackButton onPress={() => navigation.goBack()} />
           </View>
 
           <Text category="h2" style={styles.heading1}>
@@ -187,7 +186,9 @@ const themedStyle = StyleSheet.create({
     padding: 20,
     flexDirection: 'column',
   },
-  backButtonView: {},
+  backButtonView: {
+    backgroundColor: Colors.basicBackgroundColor1,
+  },
   heading1: {
     color: 'color-primary-500',
     alignSelf: 'center',

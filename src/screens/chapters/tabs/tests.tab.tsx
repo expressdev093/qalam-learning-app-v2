@@ -19,16 +19,16 @@ export const ChapterTestsTab: React.FC<
   const {data, isLoading, isError, error} = useList<IQuiz>({
     resource: 'quizzes',
     filters: [
-      // {
-      //   field: 'chapterId',
-      //   operator: 'eq',
-      //   value: chapterId,
-      // },
-      // {
-      //   field: 'type',
-      //   operator: 'eq',
-      //   value: 'chapters',
-      // },
+      {
+        field: 'entityId',
+        operator: 'eq',
+        value: chapterId,
+      },
+      {
+        field: 'type',
+        operator: 'eq',
+        value: 'chapters',
+      },
       {
         field: 'isActive',
         operator: 'eq',

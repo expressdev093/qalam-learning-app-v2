@@ -2,10 +2,10 @@ import React from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 import {Icon, Text, useStyleSheet} from '@ui-kitten/components';
 import {PlatformPressable} from '@react-navigation/elements';
-import {BASE_URL} from '@env';
 import {Colors} from '../../../../constants/colors';
 import {Utils} from '../../../../constants/utils';
 import {ITopicVideo} from '../../../../interfaces';
+import Config from 'react-native-config';
 
 type Props = {
   index: number;
@@ -41,7 +41,7 @@ export const StudyVerticalItem: React.FC<Props> = ({
 }) => {
   const styles = useStyleSheet(themedStyle);
   const hexColor = getItemBackgroundColor(index);
-  const colorWithAlpha = addAlpha(hexColor);
+  const colorWithAlpha = addAlpha(hexColor, 0.92);
 
   const renderHeader = (
     <View style={styles.header}>
@@ -69,7 +69,7 @@ export const StudyVerticalItem: React.FC<Props> = ({
   return (
     <ImageBackground
       borderRadius={20}
-      source={{uri: BASE_URL + '/' + topicVideo.thumbnail}}
+      source={{uri: Config.BASE_URL + '/' + topicVideo.thumbnail}}
       resizeMode="stretch"
       resizeMethod="resize"
       style={styles.container}>
@@ -108,6 +108,7 @@ const themedStyle = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 2,
     width: 100,
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

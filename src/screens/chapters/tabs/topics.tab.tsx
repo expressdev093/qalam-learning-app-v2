@@ -48,15 +48,16 @@ export const ChapterTopicTab: React.FC<
   };
 
   const onPlayVideoClick = (topicVideo: ITopicVideo) => {
-    rootNavigation.navigate(RouteNames.video, {
-      video: {
-        entityName: 'topic-videos',
-        entityId: topicVideo.id,
-        // url: BASE_URL + '/' + topicVideo.url,
-        // thumbnailUrl: BASE_URL + '/' + topicVideo.thumbnail,
-        // title: topicVideo.title,
-        // description: topicVideo.description,
-      },
+    rootNavigation.navigate(RouteNames.topicVideo, {
+      videoId: topicVideo.id,
+      // video: {
+      //   entityName: 'topic-videos',
+      //   entityId: topicVideo.id,
+      //   // url: BASE_URL + '/' + topicVideo.url,
+      //   // thumbnailUrl: BASE_URL + '/' + topicVideo.thumbnail,
+      //   // title: topicVideo.title,
+      //   // description: topicVideo.description,
+      // },
     });
   };
 

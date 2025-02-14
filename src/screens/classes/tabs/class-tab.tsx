@@ -19,11 +19,8 @@ export const ClassTab: React.FC = ({}) => {
   const onItemClick = (onlineClass: IOnlineClass) => {
     const topicVideos = onlineClass.topic?.videos ?? [];
     if (!onlineClass.isEnded && topicVideos.length > 0) {
-      navigation.navigate(RouteNames.video, {
-        video: {
-          entityName: 'topic-videos',
-          entityId: topicVideos[0].id,
-        },
+      navigation.navigate(RouteNames.topicVideo, {
+        videoId: topicVideos[0].id,
       });
     } else {
       Toast.show({

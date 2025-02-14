@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import {
   ScrollView,
+  StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -35,7 +36,11 @@ import {RootStackNavigationProp} from '../../../navigations/root/types';
 import {RouteNames} from '../../../navigations/constants/route.name';
 import {Icon} from '../../../components/icon';
 import {Utils} from '../../../constants/utils';
-import {LoginProvider, Role} from '../../../interfaces/enum';
+import {
+  LoginProvider,
+  Role,
+  WebsiteContentType,
+} from '../../../interfaces/enum';
 import Toast from 'react-native-toast-message';
 
 interface FormProps {
@@ -51,24 +56,11 @@ interface FormProps {
   isAgree: boolean;
 }
 
-// const initialValues: FormProps = {
-//   fullName: 'Test Test1',
-//   email: 'test1@gmail.com',
-//   password: '@Abc1234',
-//   confirmPassword: '@Abc1234',
-//   boardId: -1,
-//   boardClassId: -1,
-//   phoneNumber: '3471234567',
-//   countryCode: '+92',
-//   countryShortCode: 'PK',
-//   isAgree: true,
-// };
-
 const initialValues: FormProps = {
-  fullName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
+  fullName: 'Test Test1',
+  email: 'test1@gmail.com',
+  password: '@Abc1234',
+  confirmPassword: '@Abc1234',
   boardId: -1,
   boardClassId: -1,
   phoneNumber: '3471234567',
@@ -76,6 +68,19 @@ const initialValues: FormProps = {
   countryShortCode: 'PK',
   isAgree: true,
 };
+
+// const initialValues: FormProps = {
+//   fullName: '',
+//   email: '',
+//   password: '',
+//   confirmPassword: '',
+//   boardId: -1,
+//   boardClassId: -1,
+//   phoneNumber: '3471234567',
+//   countryCode: '+92',
+//   countryShortCode: 'PK',
+//   isAgree: true,
+// };
 
 export const SignUpForm = () => {
   const authProvider = useActiveAuthProvider();
@@ -173,7 +178,7 @@ export const SignUpForm = () => {
   const renderPasswordIcon = (props: any) => (
     <TouchableWithoutFeedback
       onPress={() => setSecureTextEntry(!secureTextEntry)}>
-      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
+      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} style={{}} />
     </TouchableWithoutFeedback>
   );
 
@@ -189,6 +194,10 @@ export const SignUpForm = () => {
                 placeholder="Full Name"
                 rules={{
                   required: 'Full name is required',
+                  pattern: {
+                    value: /^[\s\S]*\S[\s\S]*$/,
+                    message: 'Please enter both first and last name',
+                  },
                 }}
               />
               <SelectField
@@ -257,16 +266,19 @@ export const SignUpForm = () => {
                 <CheckBox
                   checked={field.value}
                   onChange={field.onChange}
-                  style={{marginTop: 10, marginRight: 20}}
+                  style={{marginTop: 10, marginRight: 10}}
                 />
               )}
             />
-            <View>
+            <View style={styles.termsAndConditionTextView}>
               <Text style={styles.p}>I have read and agree to the </Text>
-              <TouchableOpacity>
-                <Text style={[styles.primaryP, {marginLeft: 5}]}>
-                  terms and conditions
-                </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate(RouteNames.termsAndConditions, {
+                    type: WebsiteContentType.TermsAndCondition,
+                  })
+                }>
+                <Text style={[styles.primaryP]}>terms and conditions</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -281,8 +293,9 @@ export const SignUpForm = () => {
             </LoadingButton>
             <View style={styles.loginTextView}>
               <Text style={styles.p}>Already have an account? </Text>
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text style={styles.primaryP}>Login</Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate(RouteNames.login)}>
+                <Text style={[styles.primaryP, {marginTop: 5}]}>Login</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -292,7 +305,7 @@ export const SignUpForm = () => {
   );
 };
 
-const themedStyle = StyleService.create({
+const themedStyle = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
@@ -319,5 +332,10 @@ const themedStyle = StyleService.create({
   termConditionView: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  termsAndConditionTextView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: '100%',
   },
 });

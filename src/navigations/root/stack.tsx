@@ -12,7 +12,7 @@ import {AuthenticationScreen} from '../../screens/auth/auth.screen';
 import {ExerciseShowScreen} from '../../screens/exercise/exercise.show.screen';
 import {QuestionShowScreen} from '../../screens/questions/question.show.screen';
 import {TopicShowScreen} from '../../screens/topics/topic.show.screen';
-import {VideoScreen} from '../../screens/video';
+import {TopicVideoScreen} from '../../screens/video/topic-video.screen';
 import {QuizScreen} from '../../screens/quiz/quiz.screen';
 import {QuizShowScreen} from '../../screens/quiz/quiz.show.screen';
 import {ProfileEditScreen} from '../../screens/profile/profile-edit.screen';
@@ -27,6 +27,9 @@ import {useAppSelector} from '../../redux';
 import {QuizResultScreen} from '../../screens/quiz/quiz.result.screen';
 import {QuizCheckCorrectAnswerScreen} from '../../screens/quiz/quiz.check-correct-answer.screen';
 import {QuizResultOverviewScreen} from '../../screens/quiz/quiz.result-overview.screen';
+import {ChapterExerciseScreen} from '../../screens/exercise/chapter-exercise.screen';
+import {AboutUsScreen} from '../../screens/about-us/about-us.screen';
+import {WebsiteContentType} from '../../interfaces/enum';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -70,6 +73,14 @@ export const RootStack = () => {
           component={ExerciseShowScreen}
         />
         <Stack.Screen
+          name={RouteNames.chapterExerciseShow}
+          component={ChapterExerciseScreen}
+          options={{
+            headerShown: true,
+            title: 'Exercise',
+          }}
+        />
+        <Stack.Screen
           name={RouteNames.profileEdit}
           component={ProfileEditScreen}
         />
@@ -80,6 +91,12 @@ export const RootStack = () => {
           options={{
             headerShown: true,
           }}
+        />
+        <Stack.Screen
+          name={RouteNames.termsAndConditions}
+          component={AboutUsScreen}
+          options={{headerShown: true, title: 'Terms & Condition'}}
+          initialParams={{type: WebsiteContentType.TermsAndCondition}}
         />
         <Stack.Screen
           name={RouteNames.pastPaperShow}
@@ -121,7 +138,10 @@ export const RootStack = () => {
             // headerLeft: BackButton,
           }}
         />
-        <Stack.Screen name={RouteNames.video} component={VideoScreen} />
+        <Stack.Screen
+          name={RouteNames.topicVideo}
+          component={TopicVideoScreen}
+        />
         <Stack.Screen name={RouteNames.quiz} component={QuizScreen} />
         <Stack.Screen
           name={RouteNames.quizCheckCorrectAnswer}

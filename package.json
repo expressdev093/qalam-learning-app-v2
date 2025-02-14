@@ -18,7 +18,9 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "android:aab": "npx react-native build-android --mode=release",
+    "android:apk": "npm run android -- --mode='release'"
   },
   "dependencies": {
     "@eva-design/eva": "^2.2.0",

@@ -1,9 +1,9 @@
 import {Text, useStyleSheet} from '@ui-kitten/components';
 import React from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
-import {BASE_URL} from '@env';
 import {Utils} from '../../../../constants/utils';
 import {IPastPaper} from '../../../../interfaces';
+import Config from 'react-native-config';
 
 type IProps = {
   pastPaper: IPastPaper;
@@ -14,7 +14,7 @@ export const PastPaperItemVertical: React.FC<IProps> = ({pastPaper}) => {
   return (
     <View style={styles.conatiner}>
       <ImageBackground
-        source={{uri: BASE_URL + '/' + pastPaper.subject?.image}}
+        source={{uri: Config.BASE_URL + '/' + pastPaper.subject?.image}}
         resizeMode="contain"
         style={styles.imageBg}>
         <View style={styles.overlay}>

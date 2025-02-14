@@ -31,13 +31,23 @@ export class Utils {
     );
   }
 
-  static extractName(fullname: string): {firstName: string; lastName: string} {
-    const words = fullname.split(' ');
+  static extractName(fullName: string | null | undefined): {
+    firstName: string;
+    lastName: string;
+  } {
+    if (!fullName) {
+      return {firstName: '', lastName: ''};
+    }
 
-    const lastName = words.pop();
-    const firstName = words.join(' ');
+    const nameParts = fullName.trim().split(/\s+/); // Split by any whitespace, handles multiple spaces
 
-    return {firstName, lastName: lastName ?? ''};
+    const firstName = nameParts[0] || ''; // The first part is always the first name
+    const lastName = nameParts.slice(1).join(' ') || ''; // The rest is the last name
+
+    return {
+      firstName,
+      lastName,
+    };
   }
 
   static removeHtmlTags(input?: string) {

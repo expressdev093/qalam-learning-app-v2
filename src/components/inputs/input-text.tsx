@@ -5,7 +5,7 @@ import {
   useStyleSheet,
 } from '@ui-kitten/components';
 import React from 'react';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 export const InputText: React.FC<InputProps & {}> = props => {
   const {status, ...restProps} = props;
@@ -24,13 +24,14 @@ export const InputText: React.FC<InputProps & {}> = props => {
   );
 };
 
-const themedStyle = StyleService.create({
+const themedStyle = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     marginBottom: 5,
     paddingHorizontal: 15,
     paddingVertical: 5,
     borderRadius: 15,
+    paddingRight: 5,
   },
   input: {
     backgroundColor: 'white',

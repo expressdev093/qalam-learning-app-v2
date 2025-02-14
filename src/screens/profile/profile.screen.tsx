@@ -18,6 +18,7 @@ import {ThemeColorKey} from '../../constants/colors';
 import {ProfilePicture} from './components/profile-picture';
 import {RouteNames} from '../../navigations/constants/route.name';
 import {BoardClassDetail} from './components/board-class-detail';
+import {WebsiteContentType} from '../../interfaces/enum';
 
 export const ProfileScreen = () => {
   const theme = useTheme();
@@ -117,7 +118,11 @@ export const ProfileScreen = () => {
             )}
           />
           <MenuItem
-            onPress={() => navigation.navigate(RouteNames.privacyPolicy)}
+            onPress={() =>
+              navigation.navigate(RouteNames.termsAndConditions, {
+                type: WebsiteContentType.TermsAndCondition,
+              })
+            }
             title="Terms And Conditions"
             style={styles.menuItem}
             accessoryRight={ForwardIcon}

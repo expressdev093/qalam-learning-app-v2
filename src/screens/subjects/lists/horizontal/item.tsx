@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {Text, useStyleSheet} from '@ui-kitten/components';
-import {BASE_URL} from '@env';
 import {ISubject} from '../../../../interfaces';
 import {Microscope} from '../../../../components/svgs';
+import Config from 'react-native-config';
 
 const getItemBackgroundColor = (index: number) => {
   const colors = ['#D4604C', '#339FFA', '#CD48D9', '#64DC9B', '#D4604C'];
@@ -41,7 +41,8 @@ export const SubjectHorizontalItem: React.FC<Props> = ({subject, index}) => {
         {subject?.icon ? (
           <Image
             source={{
-              uri: BASE_URL + '/' + subject.icon || subject.placeholderUrl,
+              uri:
+                Config.BASE_URL + '/' + subject.icon || subject.placeholderUrl,
             }}
             style={{width: 50, height: 50}}
           />

@@ -23,11 +23,8 @@ export const StudiesHorizontalList: React.FC<Props> = ({
   const navigaiton = useNavigation<RootStackNavigationProp<any>>();
 
   const onItemClick = (topicVideo: ITopicVideo) => {
-    navigaiton.navigate(RouteNames.video, {
-      video: {
-        entityName: 'topic-videos',
-        entityId: topicVideo.id,
-      },
+    navigaiton.navigate(RouteNames.topicVideo, {
+      videoId: topicVideo.id,
     });
   };
 

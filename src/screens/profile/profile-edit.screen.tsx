@@ -6,7 +6,13 @@ import {
   useTheme,
 } from '@ui-kitten/components';
 import React, {useEffect, useRef, useState} from 'react';
-import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
+import {
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import * as Yup from 'yup';
 import {useNavigation} from '@react-navigation/native';
 //import PhoneInput from 'react-native-phone-number-input';
@@ -21,9 +27,10 @@ import {FormProvider, useForm} from 'react-hook-form';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {InputField} from '../../components/inputs';
 import {SelectField} from '../../components/select/select.form';
-import {LoadingButton} from '../../components/buttons';
-import {ThemeColorKey} from '../../constants/colors';
+import {BackButton, LoadingButton} from '../../components/buttons';
+import {Colors, ThemeColorKey} from '../../constants/colors';
 import Toast from 'react-native-toast-message';
+import {Icon} from '../../components/icon';
 
 interface FormProps {
   firstName: string;
@@ -152,10 +159,7 @@ export const ProfileEditScreen = () => {
       />
       <SafeAreaView style={styles.container}>
         <View style={styles.backButtonView}>
-          <HeaderBackButton
-            onPress={() => navigation.goBack()}
-            labelStyle={false}
-          />
+          <BackButton onPress={() => navigation.goBack()} />
         </View>
         <ScrollView style={{flex: 1, overflow: 'scroll'}}>
           <Layout style={styles.layout}>
@@ -200,22 +204,26 @@ export const ProfileEditScreen = () => {
 
               <View
                 style={{flexDirection: 'row', marginBottom: 10, width: '100%'}}>
-                <SelectField
-                  data={boards ?? []}
-                  titleField="name"
-                  valueField="id"
-                  name="boardId"
-                  placeholder="Select Board"
-                  inputStyle={{flex: 1}}
-                />
+                <View style={{flex: 1}}>
+                  <SelectField
+                    data={boards ?? []}
+                    titleField="name"
+                    valueField="id"
+                    name="boardId"
+                    placeholder="Select Board"
+                    inputStyle={{flex: 1}}
+                  />
+                </View>
                 <View style={{width: 5}} />
-                <SelectField
-                  data={boardClasses ?? []}
-                  titleField="name"
-                  valueField="id"
-                  name="boardClassId"
-                  placeholder="Select Class"
-                />
+                <View style={{flex: 1}}>
+                  <SelectField
+                    data={boardClasses ?? []}
+                    titleField="name"
+                    valueField="id"
+                    name="boardClassId"
+                    placeholder="Select Class"
+                  />
+                </View>
               </View>
 
               <LoadingButton
@@ -249,6 +257,7 @@ export const themedStyle = StyleSheet.create({
   },
   backButtonView: {
     paddingHorizontal: 20,
+    backgroundColor: Colors.basicBackgroundColor1,
   },
   heading1: {
     color: 'color-primary-500',

@@ -77,15 +77,8 @@ export const RelatedChapterVideoVerticalList: React.FC<IProps> = ({
   const styles = useStyleSheet(themedStyle);
 
   const onItemClick = (topicVideo: ITopicVideo) => {
-    navigation.navigate(RouteNames.video, {
-      video: {
-        entityName: 'topic-videos',
-        entityId: topicVideo.id,
-        // url: BASE_URL + '/' + appCorner.video,
-        // thumbnailUrl: BASE_URL + '/' + appCorner.videoThumbnail,
-        // title: appCorner.title,
-        // description: appCorner.description,
-      } as IVideo,
+    navigation.navigate(RouteNames.topicVideo, {
+      videoId: topicVideo.id,
     });
   };
 

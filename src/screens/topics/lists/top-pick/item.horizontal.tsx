@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {Text, useStyleSheet} from '@ui-kitten/components';
-import {BASE_URL} from '@env';
 import {ITopicVideo} from '../../../../interfaces';
 import {Icon} from '../../../../components/icon';
+import Config from 'react-native-config';
 
 type Props = {
   topicVideo: ITopicVideo;
@@ -17,7 +17,7 @@ export const TopPickHorizontalItem: React.FC<Props> = ({topicVideo}) => {
     <View style={styles.container}>
       <View style={styles.videoContainer}>
         <Image
-          source={{uri: BASE_URL + '/' + thumbnail}}
+          source={{uri: Config.BASE_URL + '/' + thumbnail}}
           resizeMode="stretch"
           style={{width: 140, height: 140, borderRadius: 20}}
         />

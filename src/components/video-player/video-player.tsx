@@ -35,6 +35,7 @@ type Props = ReactVideoProps & {
   onStartVideo?: () => void;
   onEndVideo?: () => void;
   videoQualities: IVideoQuality[];
+  isLoading?: boolean;
 };
 
 export const CustomVideoPlayer: React.FC<Props> = ({
@@ -44,11 +45,13 @@ export const CustomVideoPlayer: React.FC<Props> = ({
   onStartVideo,
   videoQualities,
   onEndVideo,
+  isLoading,
   ...restVideoProps
 }) => {
   const [selectedQuality, setSelectedQuality] = useState<string | null>(null);
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation<RootStackNavigationProp<RouteNames.video>>();
+  const navigation =
+    useNavigation<RootStackNavigationProp<RouteNames.topicVideo>>();
   const {width} = useWindowDimensions();
   const styles = useStyleSheet(themedStyle);
   const videoRef = useRef<VideoRef>(null);

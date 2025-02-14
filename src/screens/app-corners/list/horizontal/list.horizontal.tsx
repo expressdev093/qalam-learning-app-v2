@@ -4,7 +4,6 @@ import {FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import {View} from 'react-native-animatable';
 import {AppCornerHorizontalItem} from './item.horizontal';
 import {useNavigation} from '@react-navigation/native';
-import {BASE_URL} from '@env';
 import {useAppSelector} from '../../../../redux';
 import {useList} from '@refinedev/core';
 import {IAppCorner} from '../../../../interfaces';

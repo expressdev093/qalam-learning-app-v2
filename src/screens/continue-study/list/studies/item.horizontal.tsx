@@ -2,11 +2,11 @@ import React from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 import {Text, useStyleSheet} from '@ui-kitten/components';
 import {PlatformPressable} from '@react-navigation/elements';
-import {BASE_URL} from '@env';
 import {Utils} from '../../../../constants/utils';
 import {ITopicVideo} from '../../../../interfaces';
 import {Colors} from '../../../../constants/colors';
 import {Icon} from '../../../../components/icon';
+import Config from 'react-native-config';
 
 type Props = {
   index: number;
@@ -42,7 +42,7 @@ export const StudyHorizontalItem: React.FC<Props> = ({
 }) => {
   const styles = useStyleSheet(themedStyle);
   const hexColor = getItemBackgroundColor(index);
-  const colorWithAlpha = addAlpha(hexColor);
+  const colorWithAlpha = addAlpha(hexColor, 0.92);
 
   const renderHeader = (
     <View style={styles.header}>
@@ -70,7 +70,7 @@ export const StudyHorizontalItem: React.FC<Props> = ({
   return (
     <ImageBackground
       borderRadius={20}
-      source={{uri: BASE_URL + '/' + topicVideo.thumbnail}}
+      source={{uri: Config.BASE_URL + '/' + topicVideo.thumbnail}}
       resizeMode="stretch"
       resizeMethod="resize"
       style={styles.container}>

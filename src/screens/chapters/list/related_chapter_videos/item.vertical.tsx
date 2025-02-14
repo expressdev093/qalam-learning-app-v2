@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {BASE_URL} from '@env';
 import {ITopicVideo} from '../../../../interfaces';
 import {Icon} from '../../../../components/icon';
 import {Colors} from '../../../../constants/colors';
 import {Utils} from '../../../../constants/utils';
 import {useAppSelector} from '../../../../redux';
 import {useFavoriteVideo} from '../../../../hooks/useFavoriteVideo';
+import Config from 'react-native-config';
 
 type IProps = {
   topicVideo: ITopicVideo;
@@ -36,7 +36,7 @@ export const RelatedChapterVideoItemVertical: React.FC<IProps> = ({
       <ImageBackground
         source={{
           uri:
-            BASE_URL + '/' + topicVideo.topic?.subject?.image ||
+            Config.BASE_URL + '/' + topicVideo.topic?.subject?.image ||
             topicVideo.topic?.subject?.placeholderUrl,
         }}
         resizeMode="stretch"

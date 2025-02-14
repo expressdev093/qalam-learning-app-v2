@@ -71,7 +71,7 @@ export const TopCard: React.FC<IProps> = ({}) => {
       style={styles.container}>
       <View style={styles.content}>
         <View style={styles.detailContent}>
-          <Text style={[styles.p]}>Today’S Special Course</Text>
+          <Text style={[styles.p]}>Today’s Special Course</Text>
           <Text style={[styles.p]} category="h5">
             {onlineClass?.subject?.name}
           </Text>

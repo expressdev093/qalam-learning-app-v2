@@ -6,14 +6,11 @@ import {ITopicVideo} from '../../../interfaces';
 
 export const ContinueStudy = () => {
   const {topicVideos} = useAppSelector(state => state.continueStudy);
-  const topicVideoState = useList<ITopicVideo>({
-    resource: 'topic-videos',
-  });
+  // const topicVideoState = useList<ITopicVideo>({
+  //   resource: 'topic-videos',
+  // });
 
   return (
-    <StudiesHorizontalList
-      heading="Continue Study"
-      topicVideos={topicVideoState.data?.data || []}
-    />
+    <StudiesHorizontalList heading="Continue Study" topicVideos={topicVideos} />
   );
 };

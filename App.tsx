@@ -7,9 +7,13 @@ import {
 } from './src/providers';
 import {MainNavigation} from './src/navigations/main';
 import * as eva from '@eva-design/eva';
-import {IconRegistry} from '@ui-kitten/components';
+import {IconRegistry, Text} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
-import Toast from 'react-native-toast-message';
+import Toast, {
+  BaseToast,
+  ErrorToast,
+  ToastConfig,
+} from 'react-native-toast-message';
 import {
   AntDesignIconsPack,
   AssetIconsPack,
@@ -35,14 +39,42 @@ import {BASE_URL} from '@env';
 import {ToastProvider} from 'react-native-toast-notifications';
 
 import {enableScreens} from 'react-native-screens';
+import {View} from 'react-native';
 
 enableScreens(false); // Disable screens optimizations
+
+const toastConfig: ToastConfig = {
+  success: (props: any) => (
+    <ErrorToast
+      {...props}
+      style={{backgroundColor: 'green', borderLeftColor: 'green'}}
+      text1Style={{
+        color: 'white',
+      }}
+      text2Style={{
+        color: 'white',
+      }}
+    />
+  ),
+  error: (props: any) => (
+    <ErrorToast
+      {...props}
+      style={{backgroundColor: 'red', borderLeftColor: 'red'}}
+      text1Style={{
+        color: 'white',
+      }}
+      text2Style={{
+        color: 'white',
+      }}
+    />
+  ),
+};
 
 export const App = () => {
   console.log(Config.API_KEY, Config.BASE_URL, BASE_URL);
   return (
     <StoreProvider>
-      <ToastProvider>
+      <ToastProvider placement="bottom">
         <Refine
           dataProvider={myCustomDataProvider}
           authProvider={authProvider}
@@ -88,7 +120,7 @@ export const App = () => {
             </SafeAreaProvider>
           </Fragment>
         </Refine>
-        <Toast />
+        <Toast config={toastConfig} />
       </ToastProvider>
     </StoreProvider>
   );

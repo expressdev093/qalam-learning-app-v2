@@ -31,15 +31,8 @@ export const TopPickHorizontalList: React.FC<Props> = ({heading}) => {
   });
 
   const onItemClick = (topicVideo: ITopicVideo) => {
-    navigaiton.navigate(RouteNames.video, {
-      video: {
-        entityName: 'topic-videos',
-        entityId: topicVideo.id,
-        // url: BASE_URL + '/' + appCorner.video,
-        // thumbnailUrl: BASE_URL + '/' + appCorner.videoThumbnail,
-        // title: appCorner.title,
-        // description: appCorner.description,
-      },
+    navigaiton.navigate(RouteNames.topicVideo, {
+      videoId: topicVideo.id,
     });
   };
 

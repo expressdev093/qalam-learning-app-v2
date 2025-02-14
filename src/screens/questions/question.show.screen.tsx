@@ -3,7 +3,7 @@ import React from 'react';
 import {StyleSheet, StatusBar} from 'react-native';
 import {RootStackScreenProps} from '../../navigations/root/types';
 import {RouteNames} from '../../navigations/constants/route.name';
-import HtmlView from '../../components/htmlview';
+import HtmlView from '../../components/htmlview/html.view';
 
 export const QuestionShowScreen: React.FC<
   RootStackScreenProps<RouteNames.questionShow>

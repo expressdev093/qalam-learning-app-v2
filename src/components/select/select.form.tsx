@@ -10,6 +10,7 @@ import {Controller, useFormContext} from 'react-hook-form';
 import {Text, View} from 'react-native';
 import {StyleProp} from 'react-native';
 import {ViewStyle} from 'react-native';
+import {Icon} from '../icon';
 
 interface GenericSelectProps {
   name: string; // Name for the form field
@@ -87,7 +88,7 @@ export const SelectField: React.FC<GenericSelectProps> = ({
         };
 
         return (
-          <View style={{marginBottom: 20}}>
+          <View style={{marginBottom: 5}}>
             <Select
               {...field}
               selectedIndex={selectedIndex}
@@ -98,6 +99,18 @@ export const SelectField: React.FC<GenericSelectProps> = ({
                 ]
               }
               onSelect={handleSelect as any}
+              accessoryRight={props => (
+                <Icon
+                  {...props}
+                  pack="antdesign"
+                  name="down"
+                  size={18}
+                  style={{
+                    color: '#a19f9f',
+                    marginRight: 5,
+                  }}
+                />
+              )}
               style={[styles.select, inputStyle]}>
               {selectOptions.map((item: any, index: number) => (
                 <SelectItem key={index} title={item[titleField]} />
@@ -120,7 +133,7 @@ export const SelectField: React.FC<GenericSelectProps> = ({
 const themedStyle = StyleService.create({
   select: {
     backgroundColor: '#fff',
-    paddingHorizontal: 5,
+    //paddingHorizontal: 5,
     paddingTop: 5,
     width: '100%',
   },

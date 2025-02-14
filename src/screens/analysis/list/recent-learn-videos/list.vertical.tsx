@@ -21,11 +21,8 @@ export const RecentLearnVideoList: React.FC<Props> = ({
   const navigaiton = useNavigation<RootStackNavigationProp<any>>();
 
   const onItemClick = (recenltyLearnVideos: IRecentlyLearnVideo) => {
-    navigaiton.navigate(RouteNames.video, {
-      video: {
-        entityName: 'topic-videos',
-        entityId: recenltyLearnVideos.topicVideoId,
-      },
+    navigaiton.navigate(RouteNames.topicVideo, {
+      videoId: recenltyLearnVideos.topicVideoId,
     });
   };
   return (

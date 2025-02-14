@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {BASE_URL} from '@env';
 import {IFavoriteVideo} from '../../../../interfaces';
 import {useAppDispatch} from '../../../../redux';
 import {FavoriteActions} from '../../../../redux/reducers/favorite.reducer';
 import {Icon} from '../../../../components/icon';
 import {Colors} from '../../../../constants/colors';
 import {Utils} from '../../../../constants/utils';
+import Config from 'react-native-config';
 
 type IProps = {
   favoriteVideo: IFavoriteVideo;
@@ -31,7 +31,7 @@ export const FavoriteItemVertical: React.FC<IProps> = ({
       <ImageBackground
         source={{
           uri:
-            BASE_URL + '/' + topicVideo?.topic?.subject?.image ||
+            Config.BASE_URL + '/' + topicVideo?.topic?.subject?.image ||
             topicVideo?.topic?.subject?.placeholderUrl,
         }}
         resizeMode="stretch"

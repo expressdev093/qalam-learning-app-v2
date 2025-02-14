@@ -85,7 +85,7 @@ export const ProfilePicture = () => {
     <PlatformPressable
       style={styles.editButtonBlackView}
       onPress={handleImagePicker}>
-      <Icon name="edit" pack="antdesign" size={24} color="white" />
+      <Icon name="camera-alt" pack="material" size={24} color="white" />
     </PlatformPressable>
   );
   return (

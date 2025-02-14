@@ -9,7 +9,7 @@ import {
 import React from 'react';
 import {Linking, Platform, StyleSheet, View} from 'react-native';
 import {PlatformPressable} from '@react-navigation/elements';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import {useAppDispatch} from '../../redux';
 import {Icon} from '../../components/icon';
 import {AuthActions} from '../../redux/reducers/auth.reducer';
@@ -29,6 +29,16 @@ export const SettingsScreen = () => {
   );
 
   const onLogout = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          {
+            name: RouteNames.authentication,
+          },
+        ],
+      }),
+    );
     dispatch(AuthActions.logout());
   };
 
@@ -153,7 +163,7 @@ export const SettingsScreen = () => {
 const themedStyle = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
     backgroundColor: 'background-basic-color-1',
   },
 
@@ -161,6 +171,7 @@ const themedStyle = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 20,
+    marginTop: 10,
   },
   menuItem: {
     backgroundColor: 'white',

@@ -80,14 +80,7 @@ export const ContactUsScreen: React.FC<
                 required: 'Subject is required',
               }}
             />
-            <InputField
-              name="subject"
-              label="Subject"
-              placeholder="Subject"
-              rules={{
-                required: 'Subject is required',
-              }}
-            />
+
             <InputField
               name="email"
               label="Email"

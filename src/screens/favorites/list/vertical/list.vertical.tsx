@@ -18,15 +18,8 @@ export const FavoriteVerticalList = () => {
   const styles = useStyleSheet(themedStyle);
 
   const onItemClick = (favoriteVideo: IFavoriteVideo) => {
-    navigation.navigate(RouteNames.video, {
-      video: {
-        entityName: 'topic-videos',
-        entityId: favoriteVideo.topicVideoId,
-        // url: BASE_URL + '/' + appCorner.video,
-        // thumbnailUrl: BASE_URL + '/' + appCorner.videoThumbnail,
-        // title: appCorner.title,
-        // description: appCorner.description,
-      },
+    navigation.navigate(RouteNames.topicVideo, {
+      videoId: favoriteVideo.topicVideoId,
     });
   };
 

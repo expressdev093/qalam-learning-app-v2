@@ -3,7 +3,6 @@ import {Layout, Text, useStyleSheet} from '@ui-kitten/components';
 import React, {useEffect} from 'react';
 import {Dimensions, ScrollView, StatusBar, StyleSheet} from 'react-native';
 import Pdf from 'react-native-pdf';
-import {BASE_URL} from '@env';
 import {RootStackScreenProps} from '../../navigations/root/types';
 import {RouteNames} from '../../navigations/constants/route.name';
 import {useOne} from '@refinedev/core';
@@ -11,6 +10,7 @@ import {IPastPaper} from '../../interfaces';
 import {QueryContainer} from '../../components/containers';
 import {emptyImage} from '../../components/svgs';
 import HtmlView from '../../components/htmlview/html.view';
+import Config from 'react-native-config';
 
 export const PastPaperShowScreen: React.FC<
   RootStackScreenProps<RouteNames.pastPaperShow>
@@ -36,7 +36,7 @@ export const PastPaperShowScreen: React.FC<
     }
   }, [navigation, pastPaper]);
 
-  const source = {uri: BASE_URL + '/' + pastPaper?.url, cache: true};
+  const source = {uri: Config.BASE_URL + '/' + pastPaper?.url, cache: true};
 
   return (
     <ScrollView contentContainerStyle={{flex: 1}}>

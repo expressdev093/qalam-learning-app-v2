@@ -25,7 +25,7 @@ export const useFavoriteVideo = () => {
       },
     ],
     queryOptions: {
-      enabled: isLoggedIn && user && !isFavoriteLoaded,
+      enabled: isLoggedIn && user !== undefined,
       onSuccess(data) {
         dispatch(FavoriteActions.addList(data.data || []));
       },

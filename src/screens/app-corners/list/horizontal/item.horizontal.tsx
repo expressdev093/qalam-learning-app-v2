@@ -2,10 +2,10 @@ import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {Text, useStyleSheet} from '@ui-kitten/components';
 import {PlatformPressable} from '@react-navigation/elements';
-import {BASE_URL} from '@env';
 import {Utils} from '../../../../constants/utils';
 import {IAppCorner} from '../../../../interfaces';
 import {Icon} from '../../../../components/icon';
+import Config from 'react-native-config';
 
 type Props = {
   appCorner: IAppCorner;
@@ -19,7 +19,7 @@ export const AppCornerHorizontalItem: React.FC<Props> = ({appCorner}) => {
     <View style={styles.container}>
       <View style={styles.videoContainer}>
         <Image
-          source={{uri: BASE_URL + '/' + (image ?? videoThumbnail)}}
+          source={{uri: Config.BASE_URL + '/' + (image ?? videoThumbnail)}}
           style={styles.videoThumbnail as any}
           resizeMode="cover"
         />

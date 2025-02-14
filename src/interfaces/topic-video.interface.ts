@@ -21,6 +21,8 @@ export interface ITopicVideo extends IBase {
 
   views: number;
 
+  likes: number;
+
   isActive: boolean;
 
   topic?: ITopic;

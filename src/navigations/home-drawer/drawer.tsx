@@ -61,7 +61,7 @@ export const HomeDrawer = ({}) => {
       <Drawer.Screen
         name={RouteNames.privacyPolicy}
         component={AboutUsScreen}
-        options={{headerShown: true}}
+        options={{headerShown: true, title: 'Privacy Policy'}}
         initialParams={{type: WebsiteContentType.PrivacyPolicy}}
       />
       <Drawer.Screen

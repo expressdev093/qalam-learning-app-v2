@@ -12,6 +12,7 @@ import {
   IUserQuizAnswer,
   IVideo,
 } from '../../interfaces';
+import {WebsiteContentType} from '../../interfaces/enum';
 
 // Root stack
 export type RootStackParamList = {
@@ -32,14 +33,18 @@ export type RootStackParamList = {
     exerciseId: number;
     title?: string;
   };
+  [RouteNames.chapterExerciseShow]: {
+    chapterId: number;
+  };
   [RouteNames.questionShow]: {
     question: IQuestion;
   };
   [RouteNames.topicShow]: {
     topic: ITopic;
   };
-  [RouteNames.video]: {
-    video: IVideo;
+  [RouteNames.topicVideo]: {
+    videoId: number;
+    //video: IVideo;
   };
 
   [RouteNames.quiz]: {
@@ -66,6 +71,7 @@ export type RootStackParamList = {
   [RouteNames.changePassword]: undefined;
   [RouteNames.contactUs]: undefined;
   [RouteNames.privacyPolicy]: undefined;
+  [RouteNames.termsAndConditions]: {type: WebsiteContentType};
   [RouteNames.pastPaper]: undefined;
   [RouteNames.pastPaperShow]: {
     pastPaperId: number;

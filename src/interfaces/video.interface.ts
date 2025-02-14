@@ -7,6 +7,7 @@ export interface IVideo {
 }
 
 export interface IVideoData {
+  videoId: number;
   title?: string;
   description?: string;
   url?: string;
