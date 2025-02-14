@@ -8,6 +8,7 @@ import {
 import React from 'react';
 import {
   StatusBar,
+  StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -19,7 +20,7 @@ import {RouteNames} from '../../navigations/constants/route.name';
 import {Formik} from 'formik';
 import {InputTextValidation} from '../../components/inputs';
 import {Icon} from '../../components/icon';
-import {LoadingButton} from '../../components/buttons';
+import {BackButton, LoadingButton} from '../../components/buttons';
 import {HorizontalLineWithText} from '../../components/horizontal-line-text';
 import {Facebook, Google} from '../../components/svgs';
 import {Colors} from '../../constants/colors';
@@ -109,7 +110,11 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
   const renderPasswordIcon = (props: any) => (
     <TouchableWithoutFeedback
       onPress={() => setSecureTextEntry(!secureTextEntry)}>
-      <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
+      <Icon
+        {...props}
+        color="#000"
+        name={secureTextEntry ? 'eye-off' : 'eye'}
+      />
     </TouchableWithoutFeedback>
   );
 
@@ -124,79 +129,82 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
         barStyle="dark-content"
       />
       <Layout style={styles.container}>
-        <Text category="h2" style={styles.heading1}>
-          Hello,
-        </Text>
-        <Text category="h3">Welcome Back</Text>
-        <View
-          style={{
-            marginTop: 40,
-            width: '100%',
-            justifyContent: 'center',
-          }}>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}>
-            {({handleSubmit, handleBlur, handleChange, values}) => (
-              <React.Fragment>
-                <InputTextValidation
-                  status="default"
-                  keyboardType="email-address"
-                  label="Email Address"
-                  size="large"
-                  name="email"
-                  id="email"
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                />
+        <BackButton navigation={navigation} />
+        <View style={styles.content}>
+          <Text category="h2" style={styles.heading1}>
+            Hello,
+          </Text>
+          <Text category="h3">Welcome Back</Text>
+          <View
+            style={{
+              marginTop: 40,
+              width: '100%',
+              justifyContent: 'center',
+            }}>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}>
+              {({handleSubmit, handleBlur, handleChange, values}) => (
+                <React.Fragment>
+                  <InputTextValidation
+                    status="default"
+                    keyboardType="email-address"
+                    label="Email Address"
+                    size="large"
+                    name="email"
+                    id="email"
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                  />
 
-                <InputTextValidation
-                  status="default"
-                  size="large"
-                  name="password"
-                  id="password"
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  label="Password"
-                  accessoryRight={renderPasswordIcon}
-                  secureTextEntry={secureTextEntry}
-                />
-                <TouchableWithoutFeedback
-                  style={styles.forgotPasswordView}
-                  onPress={() =>
-                    navigation.navigate(RouteNames.forgotPassword)
-                  }>
-                  <Text style={styles.forgotPasswordText}>
-                    Forget Password?
-                  </Text>
-                </TouchableWithoutFeedback>
-                <LoadingButton
-                  loading={isLoading}
-                  onPress={handleSubmit as any}
-                  style={{marginTop: 20}}>
-                  Login
-                </LoadingButton>
-              </React.Fragment>
-            )}
-          </Formik>
-        </View>
-        <HorizontalLineWithText text="or" style={{marginTop: 20}} />
-        <View style={{flexDirection: 'row', marginTop: 20}}>
-          <Button
-            onPress={googleSignIn}
-            accessoryLeft={props => (
-              <Google {...props} width={36} height={36} />
-            )}
-            appearance="ghost"
-          />
-          <Button
-            onPress={onFacebookButtonPress}
-            accessoryLeft={props => (
-              <Facebook {...props} width={36} height={36} />
-            )}
-            appearance="ghost"
-          />
+                  <InputTextValidation
+                    status="default"
+                    size="large"
+                    name="password"
+                    id="password"
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    label="Password"
+                    accessoryRight={renderPasswordIcon}
+                    secureTextEntry={secureTextEntry}
+                  />
+                  <TouchableWithoutFeedback
+                    style={styles.forgotPasswordView}
+                    onPress={() =>
+                      navigation.navigate(RouteNames.forgotPassword)
+                    }>
+                    <Text style={styles.forgotPasswordText}>
+                      Forget Password?
+                    </Text>
+                  </TouchableWithoutFeedback>
+                  <LoadingButton
+                    loading={isLoading}
+                    onPress={handleSubmit as any}
+                    style={{marginTop: 20}}>
+                    Login
+                  </LoadingButton>
+                </React.Fragment>
+              )}
+            </Formik>
+          </View>
+          <HorizontalLineWithText text="Or" style={{marginTop: 20}} />
+          <View style={{flexDirection: 'row', marginTop: 20}}>
+            <Button
+              onPress={googleSignIn}
+              accessoryLeft={props => (
+                <Google {...props} width={36} height={36} />
+              )}
+              appearance="ghost"
+            />
+            <Button
+              onPress={onFacebookButtonPress}
+              accessoryLeft={props => (
+                <Facebook {...props} width={36} height={36} />
+              )}
+              appearance="ghost"
+            />
+          </View>
         </View>
       </Layout>
       <View style={styles.footer}>
@@ -210,8 +218,12 @@ export const LoginScreen: React.FC<RootStackScreenProps<RouteNames.login>> = ({
   );
 };
 
-const themedStyle = StyleService.create({
+const themedStyle = StyleSheet.create({
   container: {
+    flex: 1,
+    paddingTop: 10,
+  },
+  content: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

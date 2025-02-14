@@ -105,8 +105,8 @@ export const ProfilePicture = () => {
 const themedStyle = StyleSheet.create({
   editButtonBlackView: {
     position: 'absolute',
-    bottom: -10,
-    right: 0,
+    bottom: -15,
+    right: 25,
     width: 45,
     height: 45,
     backgroundColor: '#000',

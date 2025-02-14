@@ -3,12 +3,14 @@ import {
   IndexPath,
   Select,
   SelectItem,
+  Text,
   useStyleSheet,
 } from '@ui-kitten/components';
 import {FormikProps} from 'formik';
 import React, {useMemo, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {IPastPaper, ISubject} from '../../interfaces';
+import {Icon} from '../../components/icon';
 
 export interface PaperFormProps {
   subjectId?: number;
@@ -95,6 +97,19 @@ export const PastPaperForm: React.FC<Props> = ({onSubmit}) => {
     const isTouched = touched[name];
     return error && isTouched ? error : undefined;
   };
+
+  const accessoryRight = (props: any) => (
+    <Icon
+      {...props}
+      pack="antdesign"
+      name="down"
+      size={18}
+      style={{
+        color: '#a19f9f',
+        marginRight: 5,
+      }}
+    />
+  );
   return (
     <View style={{flexDirection: 'row', marginBottom: 10}}>
       <Select
@@ -111,7 +126,10 @@ export const PastPaperForm: React.FC<Props> = ({onSubmit}) => {
                 : '0',
           });
         }}
-        label={'Subject'}
+        label={props => (
+          <Text style={[props?.style, styles.label]}>Subject</Text>
+        )}
+        accessoryRight={accessoryRight}
         style={styles.select}>
         {subjects.map(board => (
           <SelectItem key={board.id} title={board.name} />
@@ -128,7 +146,10 @@ export const PastPaperForm: React.FC<Props> = ({onSubmit}) => {
             year: index.row !== 0 ? sessions[index.row]?.name : '0',
           });
         }}
-        label={'Session'}
+        label={props => (
+          <Text style={[props?.style, styles.label]}>Session</Text>
+        )}
+        accessoryRight={accessoryRight}
         style={styles.select}>
         {sessions.map(grade => (
           <SelectItem key={grade.id} title={grade.name} />
@@ -142,8 +163,13 @@ const themedStyle = StyleSheet.create({
   select: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 5,
     paddingTop: 5,
     borderRadius: 10,
+    position: 'relative',
+  },
+  label: {
+    color: '#000',
+    left: 15,
+    top: 5,
   },
 });

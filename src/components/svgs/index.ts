@@ -19,6 +19,7 @@ import AppCorner from './../../../assets/images/app-corner.svg';
 import QuizIcon from './../../../assets/images/quiz-icon.svg';
 import ShareWithFriend from './../../../assets/images/share-with-friend.svg';
 import Classes from './../../../assets/images/classes.svg';
+import BrainPrimary from './../../../assets/images/brainprimary.svg';
 
 const learnAnalysisImage = require('./../../../assets/images/learn-analysis.png');
 const graphImage = require('./../../../assets/images/graph.png');
@@ -33,6 +34,7 @@ const wifiImage = require('./../../../assets/images/wifi.png');
 const topPickImage = require('./../../../assets/images/top-pick.png');
 
 export {
+  BrainPrimary,
   AuthCircle,
   LogoPrimary,
   UserSquar,

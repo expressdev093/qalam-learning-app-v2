@@ -28,9 +28,6 @@ export const PastPaperItemVertical: React.FC<IProps> = ({pastPaper}) => {
           <View style={styles.labelView}>
             <Text style={styles.label}>{pastPaper.subject?.name}</Text>
           </View>
-          <Text category="s1" style={styles.secondarText}>
-            {pastPaper.year}
-          </Text>
         </View>
         <Text style={styles.title}>{pastPaper.name}</Text>
         <View style={styles.row}>

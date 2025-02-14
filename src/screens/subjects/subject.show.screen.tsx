@@ -12,6 +12,7 @@ import {Icon} from '../../components/icon';
 import {FavoriteHeaderButton} from '../../components/buttons';
 import BackHeaderButton from '../../components/buttons/back-header.button';
 import {QueryContainer} from '../../components/containers';
+import {Colors} from '../../constants/colors';
 
 export const SubjectShowScreen: React.FC<
   RootStackScreenProps<RouteNames.subjectShow>
@@ -123,7 +124,7 @@ const themedStyle = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 130,
+    height: 100,
     flexDirection: 'row',
     alignItems: 'center',
     padding: 20,
@@ -144,6 +145,6 @@ const themedStyle = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.5)',
+    backgroundColor: 'rgba(255,255,255,0.2)',
   },
 });

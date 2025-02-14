@@ -28,8 +28,8 @@ export const BoardClassDetail = () => {
         <ActivityIndicator />
       ) : (
         <Fragment>
-          <Text category="p1">{`Board - ${boardClass?.board?.name}`}</Text>
           <Text category="p1">{`Grade - ${boardClass?.name}`}</Text>
+          <Text category="p1">{`Board - ${boardClass?.board?.name}`}</Text>
         </Fragment>
       )}
     </View>

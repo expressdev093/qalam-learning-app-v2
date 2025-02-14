@@ -34,12 +34,12 @@ export const TopicItemVertical: React.FC<IProps> = ({
           angle={90}
           style={styles.gradientView}>
           <Image source={personImage} style={{alignSelf: 'flex-end'}} />
-          <View style={{flex: 1}}>
-            <Text category="h5" style={styles.colorWhite}>
+          <View style={{flex: 1, marginLeft: 10}}>
+            <Text style={[styles.heading, styles.colorWhite]}>
               {topic?.name}
             </Text>
             <Text
-              style={[styles.colorWhite, styles.topicDescription]}
+              style={[styles.topicDescription]}
               numberOfLines={1}
               ellipsizeMode="tail">
               {Utils.removeHtmlTags(description)}
@@ -100,13 +100,20 @@ const themedStyle = StyleSheet.create({
     borderColor: 'color-secondary',
     marginRight: 10,
   },
+  heading: {
+    textTransform: 'uppercase',
+    fontWeight: '700',
+    fontSize: 20,
+  },
   title: {
     fontWeight: 'bold',
-    fontSize: 13,
+    fontSize: 15,
   },
   description: {
     marginTop: 0,
     fontSize: 12,
+    fontWeight: '600',
+    color: '#8F9BB2',
   },
   icon: {
     color: 'color-secondary',
@@ -119,5 +126,7 @@ const themedStyle = StyleSheet.create({
   },
   topicDescription: {
     marginRight: 10,
+    textTransform: 'uppercase',
+    color: '#ffffff90',
   },
 });

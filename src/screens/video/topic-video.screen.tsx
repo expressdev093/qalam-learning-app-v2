@@ -26,7 +26,7 @@ import {OnProgressData} from 'react-native-video';
 import {VideoStateComponent} from '../../components/video-player/video-states.component';
 import CollapsibleHtmlView from '../../components/htmlview/collapsible-html.view';
 import {Icon} from '../../components/icon';
-import {QuizIcon} from '../../components/svgs';
+import {BrainPrimary, QuizIcon} from '../../components/svgs';
 import {RelatedChapterVideoVerticalList} from '../chapters/list/related_chapter_videos';
 import {useVideoViewCount} from '../../hooks/useVideoViewCount';
 import {useAppDispatch, useAppSelector} from '../../redux';
@@ -129,7 +129,7 @@ export const TopicVideoScreen: React.FC<
         });
       }}
       style={{borderRadius: 15, backgroundColor: '#E2E4E1'}}
-      accessoryLeft={props => <QuizIcon {...props} fill={'#000'} />}>
+      accessoryLeft={props => <BrainPrimary {...props} fill={'#000'} />}>
       {props => (
         <Text
           {...props}
@@ -164,12 +164,23 @@ export const TopicVideoScreen: React.FC<
               {renderDivider}
               <View style={styles.row}>
                 <View style={{flex: 1}}>
-                  <Text category="p2">Document File</Text>
+                  <Text
+                    category="p2"
+                    style={{
+                      color: '#00000090',
+                      fontSize: 12,
+                    }}>
+                    Document File
+                  </Text>
                   <Text category="h6" style={styles.primaryText}>
-                    {topicVideo?.topic?.chapter?.subject?.name}
+                    {topicVideo?.topic?.subject?.name}
                   </Text>
                   <View style={{flexDirection: 'row'}}>
-                    <Text category="s1">Chapter : </Text>
+                    <Text
+                      category="s1"
+                      style={{fontWeight: 'bold', color: '#00000090'}}>
+                      Chapter :{' '}
+                    </Text>
                     <Text category="p1">
                       {topicVideo?.topic?.chapter?.name}
                     </Text>

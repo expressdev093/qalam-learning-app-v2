@@ -119,14 +119,12 @@ export const ChangePasswordScreen = () => {
   return (
     <FormProvider {...form}>
       <SafeAreaView style={styles.container}>
+        <BackButton navigation={navigation} />
         <Layout style={styles.layout}>
           <StatusBar
             backgroundColor={theme[ThemeColorKey.backgroundBasicColor1]}
             barStyle={'dark-content'}
           />
-          <View style={styles.backButtonView}>
-            <BackButton onPress={() => navigation.goBack()} />
-          </View>
 
           <Text category="h2" style={styles.heading1}>
             Change Password
@@ -180,6 +178,8 @@ export const ChangePasswordScreen = () => {
 const themedStyle = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 10,
+    backgroundColor: Colors.basicBackgroundColor1,
   },
   layout: {
     flex: 1,

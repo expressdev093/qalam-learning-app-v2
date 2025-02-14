@@ -30,9 +30,10 @@ export const ProfileScreen = () => {
   };
   const navigation = useNavigation<RootStackNavigationProp<any>>();
   const styles = useStyleSheet(themedStyle);
+  const iconColor = '#000';
 
   const ForwardIcon = (props: any) => (
-    <Icon {...props} name="arrow-ios-forward" />
+    <Icon {...props} name="arrow-ios-forward" color={iconColor} />
   );
 
   const handleExternalLinkPress = async (url: string) => {
@@ -95,6 +96,7 @@ export const ProfileScreen = () => {
                 {...props}
                 name="form-textbox-password"
                 pack="material-community"
+                color={iconColor}
               />
             )}
             accessoryRight={ForwardIcon}
@@ -105,7 +107,7 @@ export const ProfileScreen = () => {
             style={styles.menuItem}
             accessoryRight={ForwardIcon}
             accessoryLeft={props => (
-              <Icon {...props} name="phone" pack="feather" />
+              <Icon {...props} name="phone" pack="feather" color={iconColor} />
             )}
           />
           <MenuItem
@@ -114,7 +116,12 @@ export const ProfileScreen = () => {
             style={styles.menuItem}
             accessoryRight={ForwardIcon}
             accessoryLeft={props => (
-              <Icon {...props} name="policy" pack="material" />
+              <Icon
+                {...props}
+                name="policy"
+                pack="material"
+                color={iconColor}
+              />
             )}
           />
           <MenuItem
@@ -127,7 +134,12 @@ export const ProfileScreen = () => {
             style={styles.menuItem}
             accessoryRight={ForwardIcon}
             accessoryLeft={props => (
-              <Icon {...props} name="file-text" pack="feather" />
+              <Icon
+                {...props}
+                name="file-text"
+                pack="feather"
+                color={iconColor}
+              />
             )}
           />
           <MenuItem
@@ -136,7 +148,12 @@ export const ProfileScreen = () => {
             style={styles.menuItem}
             accessoryRight={ForwardIcon}
             accessoryLeft={props => (
-              <Icon {...props} name="logout" pack="simple-line" />
+              <Icon
+                {...props}
+                name="logout"
+                pack="simple-line"
+                color={iconColor}
+              />
             )}
           />
         </Menu>
@@ -162,6 +179,7 @@ const themedStyle = StyleSheet.create({
   menuCard: {
     backgroundColor: 'white',
     padding: 20,
+    paddingHorizontal: 10,
     borderRadius: 20,
   },
   menuItem: {

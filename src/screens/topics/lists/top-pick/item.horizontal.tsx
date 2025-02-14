@@ -75,8 +75,8 @@ const themedStyle = StyleSheet.create({
     marginRight: 10,
   },
   title: {
-    fontWeight: 'bold',
-    fontSize: 13,
+    fontWeight: '700',
+    fontSize: 16,
   },
   description: {
     marginTop: 3,

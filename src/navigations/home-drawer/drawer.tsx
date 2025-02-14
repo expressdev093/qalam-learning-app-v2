@@ -73,7 +73,7 @@ export const HomeDrawer = ({}) => {
       <Drawer.Screen
         name={RouteNames.settings}
         component={SettingsScreen}
-        options={{headerShown: true}}
+        options={{headerShown: true, headerTitleAlign: 'center'}}
       />
     </Drawer.Navigator>
   );

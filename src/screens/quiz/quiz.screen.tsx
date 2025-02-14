@@ -115,8 +115,12 @@ export const QuizScreen: React.FC<RootStackScreenProps<RouteNames.quiz>> = ({
           error={quizState.error}
           isEmpty={quizState.isFetched && quiz === undefined}>
           <View style={{flex: 1}}>
-            <Text category="s1">{Utils.capitalizeFirstWord(quiz?.type)}</Text>
-            <Text category="h5">{quiz?.title}</Text>
+            <Text category="s1" style={styles.type}>
+              {quiz?.type}
+            </Text>
+            <Text category="h5" style={styles.title}>
+              {quiz?.title}
+            </Text>
             <View style={styles.quizInfoView}>
               <View style={styles.quizInfoIcon}>
                 <Icon
@@ -127,7 +131,14 @@ export const QuizScreen: React.FC<RootStackScreenProps<RouteNames.quiz>> = ({
                 />
               </View>
               <Text style={styles.quizInfotext}>Questions</Text>
-              <Text>{quiz?.totalTime || 0} Minutes</Text>
+              <Text
+                style={{
+                  color: 'rgba(0, 0, 0, 0.7)',
+                  fontSize: 13,
+                  fontWeight: '400',
+                }}>
+                {quiz?.totalTime || 0} Minutes
+              </Text>
             </View>
             <View style={styles.content}>
               <Text style={styles.heading}>DESCRIPTION</Text>
@@ -197,4 +208,6 @@ const themedStyle = StyleSheet.create({
     fontSize: 16,
     flex: 1,
   },
+  type: {color: '#858494', textTransform: 'uppercase', fontSize: 14},
+  title: {color: '#0C092A', fontWeight: 'bold', fontSize: 20},
 });

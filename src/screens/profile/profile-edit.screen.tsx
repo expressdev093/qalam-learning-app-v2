@@ -158,9 +158,8 @@ export const ProfileEditScreen = () => {
         barStyle={'dark-content'}
       />
       <SafeAreaView style={styles.container}>
-        <View style={styles.backButtonView}>
-          <BackButton onPress={() => navigation.goBack()} />
-        </View>
+        <BackButton navigation={navigation} />
+
         <ScrollView style={{flex: 1, overflow: 'scroll'}}>
           <Layout style={styles.layout}>
             <Text category="h2" style={styles.heading1}>
@@ -247,6 +246,8 @@ export const ProfileEditScreen = () => {
 export const themedStyle = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 10,
+    backgroundColor: Colors.basicBackgroundColor1,
   },
   layout: {
     flex: 1,
@@ -255,10 +256,7 @@ export const themedStyle = StyleSheet.create({
     alignItems: 'center',
     height: 'auto',
   },
-  backButtonView: {
-    paddingHorizontal: 20,
-    backgroundColor: Colors.basicBackgroundColor1,
-  },
+
   heading1: {
     color: 'color-primary-500',
   },

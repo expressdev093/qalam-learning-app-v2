@@ -1,6 +1,11 @@
 import {Button, Text, useStyleSheet, useTheme} from '@ui-kitten/components';
 import React, {useRef} from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors, ThemeColorKey} from '../../../constants/colors';
@@ -72,21 +77,20 @@ export const TopCard: React.FC<IProps> = ({}) => {
       <View style={styles.content}>
         <View style={styles.detailContent}>
           <Text style={[styles.p]}>Today’s Special Course</Text>
-          <Text style={[styles.p]} category="h5">
+          <Text style={[styles.p, {color: '#fff'}]} category="h5">
             {onlineClass?.subject?.name}
           </Text>
           <Text style={[styles.p]}>
             Chapter : {onlineClass?.chapter?.name as any}
           </Text>
-          <Button
-            onPress={onStartNow}
-            appearance="ghost"
-            style={styles.button}
-            accessoryRight={props => (
-              <Icon {...props} name="arrow-forward-outline" />
-            )}>
-            Start Now
-          </Button>
+          <TouchableOpacity onPress={onStartNow} style={styles.button}>
+            <Text style={styles.buttonText}>Start Now</Text>
+            <Icon
+              style={styles.icon}
+              name="arrow-forward-outline"
+              color={theme[ThemeColorKey.primary500]}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.iconView}>
           <NerdAmico />
@@ -115,15 +119,25 @@ const themedStyle = StyleSheet.create({
     flex: 1,
   },
   p: {
-    color: '#fff',
+    color: '#ffffff90',
   },
   button: {
     backgroundColor: 'white',
     color: '#000',
-    width: '80%',
+    width: 141,
+    height: 37,
     marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100,
   },
   buttonText: {
-    fontSize: 11,
+    fontSize: 14,
+    color: 'color-primary-500',
+    fontWeight: 'bold',
+  },
+  icon: {
+    marginLeft: 10,
   },
 });

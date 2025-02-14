@@ -10,6 +10,7 @@ import {ITopicVideo} from '../../../../interfaces';
 import {RouteNames} from '../../../../navigations/constants/route.name';
 import {RootStackNavigationProp} from '../../../../navigations/root/types';
 import {QueryContainer} from '../../../../components/containers';
+import {Icon} from '../../../../components/icon';
 
 type Props = {
   heading: string;
@@ -45,9 +46,15 @@ export const TopPickHorizontalList: React.FC<Props> = ({heading}) => {
       error={topicVideoState.error}
       isEmpty={topicVideos.length === 0}>
       <View>
-        <Text category="h5" style={styles.heading}>
-          {heading}
-        </Text>
+        <View style={styles.header}>
+          <Text style={styles.heading}>{heading}</Text>
+          <TouchableOpacity
+            style={styles.viewAllButton}
+            onPress={() => navigaiton.navigate(RouteNames.continueStudyList)}>
+            <Text>View All</Text>
+            <Icon size={24} style={styles.icon} name="chevron-right-outline" />
+          </TouchableOpacity>
+        </View>
         <FlatList
           data={topicVideos}
           keyExtractor={item => item.id.toString()}
@@ -74,5 +81,17 @@ const themedStyle = StyleSheet.create({
   heading: {
     fontSize: 18,
     marginVertical: 10,
+    flex: 1,
+  },
+  icon: {
+    color: 'color-primary-500',
+  },
+  viewAllButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

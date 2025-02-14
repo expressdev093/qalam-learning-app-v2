@@ -28,7 +28,7 @@ export const StudiesHorizontalList: React.FC<Props> = ({
     });
   };
 
-  return (
+  return topicVideos.length > 0 ? (
     <View>
       <View style={styles.header}>
         <Text category="h5" style={styles.heading}>
@@ -61,6 +61,8 @@ export const StudiesHorizontalList: React.FC<Props> = ({
         ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
       />
     </View>
+  ) : (
+    <></>
   );
 };
 

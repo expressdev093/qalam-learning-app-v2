@@ -8,7 +8,7 @@ import {Layout, StyleService, Text, useStyleSheet} from '@ui-kitten/components';
 import {RootStackScreenProps} from '../../navigations/root/types';
 import {RouteNames} from '../../navigations/constants/route.name';
 import {InputTextValidation} from '../../components/inputs';
-import {LoadingButton} from '../../components/buttons';
+import {BackButton, LoadingButton} from '../../components/buttons';
 import {type ForgotPasswordFormTypes, useForgotPassword} from '@refinedev/core';
 import Toast from 'react-native-toast-message';
 
@@ -44,7 +44,7 @@ export const ForgotPasswordScreen: React.FC<
           text1: 'Email sent',
           text2: 'We have sent you an email to reset your password',
         });
-        // navigation.navigate(data.redirectTo as any);
+        navigation.navigate(data.redirectTo as any);
       },
     });
   };
@@ -54,40 +54,44 @@ export const ForgotPasswordScreen: React.FC<
         backgroundColor={Colors.basicBackgroundColor1}
         barStyle="dark-content"
       />
-      <Layout style={styles.container}>
-        <Text category="h2" style={styles.heading1}>
-          Reset Password
-        </Text>
-        <Text category="p1" style={styles.description}>
-          Follow the instructions in the email to activate the new password
-        </Text>
-        <View style={{marginTop: 40, width: '100%'}}>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}>
-            {({handleSubmit, handleBlur, handleChange, values}) => (
-              <React.Fragment>
-                <InputTextValidation
-                  status="default"
-                  keyboardType="email-address"
-                  label="Email Address"
-                  size="large"
-                  name="email"
-                  id="email"
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                />
 
-                <LoadingButton
-                  loading={isLoading}
-                  onPress={handleSubmit as any}
-                  style={{marginTop: 20}}>
-                  Send
-                </LoadingButton>
-              </React.Fragment>
-            )}
-          </Formik>
+      <Layout style={styles.container}>
+        <BackButton navigation={navigation} />
+        <View style={styles.content}>
+          <Text category="h2" style={styles.heading1}>
+            Reset Password
+          </Text>
+          <Text category="p1" style={styles.description}>
+            Follow the instructions in the email to activate the new password
+          </Text>
+          <View style={{marginTop: 40, width: '100%'}}>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}>
+              {({handleSubmit, handleBlur, handleChange, values}) => (
+                <React.Fragment>
+                  <InputTextValidation
+                    status="default"
+                    keyboardType="email-address"
+                    label="Email Address"
+                    size="large"
+                    name="email"
+                    id="email"
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                  />
+
+                  <LoadingButton
+                    loading={isLoading}
+                    onPress={handleSubmit as any}
+                    style={{marginTop: 20}}>
+                    Send
+                  </LoadingButton>
+                </React.Fragment>
+              )}
+            </Formik>
+          </View>
         </View>
       </Layout>
     </SafeAreaView>
@@ -97,7 +101,10 @@ export const ForgotPasswordScreen: React.FC<
 const themedStyle = StyleService.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    paddingTop: 10,
+  },
+  content: {
+    flex: 1,
     alignItems: 'center',
     padding: 20,
   },

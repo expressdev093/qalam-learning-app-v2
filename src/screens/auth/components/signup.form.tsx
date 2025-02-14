@@ -323,7 +323,9 @@ const themedStyle = StyleSheet.create({
   },
   loginTextView: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
   p: {
     textAlign: 'center',

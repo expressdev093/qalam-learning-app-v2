@@ -37,7 +37,8 @@ const themedStyle = StyleService.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: 10,
+    paddingTop: 20,
   },
   backButtonView: {
     paddingHorizontal: 20,

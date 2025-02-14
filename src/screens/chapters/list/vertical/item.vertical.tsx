@@ -26,10 +26,11 @@ export const ChapterItemVertical: React.FC<Props> = ({
         </Text>
       </View>
       <View style={[styles.box]}>
-        <Text category="h6" style={styles.secondrycolor}>
-          {index + 1}
+        <Text
+          style={[styles.secondrycolor, {fontSize: 23, fontWeight: 'bold'}]}>
+          {(index + 1).toString().padStart(2, '0')}
         </Text>
-        <Text category="p2" style={styles.p}>
+        <Text category="p2" style={[styles.p, {fontWeight: '700'}]}>
           Chapter
         </Text>
       </View>
@@ -76,7 +77,7 @@ const themedStyle = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(212,96,76,0.2)',
+    backgroundColor: '#D4604C20',
   },
   p: {
     fontSize: 11,

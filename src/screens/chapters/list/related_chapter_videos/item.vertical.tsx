@@ -130,17 +130,20 @@ const themedStyle = StyleSheet.create({
     alignItems: 'center',
   },
   labelView: {
-    backgroundColor: 'color-primary-300',
+    backgroundColor: 'color-primary-100',
     paddingHorizontal: 10,
     paddingVertical: 1,
     borderRadius: 5,
   },
   label: {
-    color: '#fff',
+    color: 'color-primary-700',
     fontSize: 14,
   },
   title: {
     marginTop: -2,
+    fontWeight: '700',
+    fontSize: 15,
+    color: '#00000090',
   },
   description: {
     fontSize: 11,

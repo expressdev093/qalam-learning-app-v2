@@ -2,19 +2,23 @@ import {
   Input,
   InputProps,
   StyleService,
+  Text,
   useStyleSheet,
 } from '@ui-kitten/components';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
 export const InputText: React.FC<InputProps & {}> = props => {
-  const {status, ...restProps} = props;
+  const {status, label, ...restProps} = props;
   const styles = useStyleSheet(themedStyle);
 
   return (
     <View style={[styles.container, (styles as any)[status ?? 'basic']]}>
       <Input
         {...restProps}
+        label={props => (
+          <Text style={[props?.style, styles.label]}>{label as string}</Text>
+        )}
         textStyle={styles.textStyle}
         style={[styles.input, restProps.style]}
         status={status}
@@ -49,5 +53,9 @@ const themedStyle = StyleSheet.create({
   textStyle: {
     paddingHorizontal: 0,
     marginLeft: -5,
+    color: '#000',
+  },
+  label: {
+    color: '#000',
   },
 });

@@ -28,7 +28,7 @@ const BottomTabBar = ({state, navigation}: BottomTabBarProps) => {
       onSelect={(index: any) => navigation.navigate(state.routeNames[index])}>
       <BottomNavigationTab
         title={RouteNames.home}
-        icon={props => <Home {...props} stroke={'red'} />}
+        icon={props => <Icon {...props} name="home" />}
       />
       <BottomNavigationTab
         title="Classes"

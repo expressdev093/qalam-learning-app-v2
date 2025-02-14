@@ -49,7 +49,18 @@ export const ChapterTestsTab: React.FC<
         isError={isError}
         isLoading={isLoading}
         isEmpty={quizzes.length === 0}>
-        <ChapterTestListVertical quizes={quizzes} onItemClick={onItemClick} />
+        <View>
+          <Text
+            style={{
+              color: '#000',
+              fontSize: 16,
+              fontWeight: '600',
+              marginVertical: 5,
+            }}>
+            Choice your course
+          </Text>
+          <ChapterTestListVertical quizes={quizzes} onItemClick={onItemClick} />
+        </View>
       </QueryContainer>
     </Layout>
   );

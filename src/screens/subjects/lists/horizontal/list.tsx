@@ -23,10 +23,9 @@ export const SubjectHorizontalList: React.FC<Props> = ({
   });
 
   const subjects = data?.data || [];
-  const subjectsWithPastPaper = [
-    {id: 0, name: 'Past Paper', isActive: true},
-    ...subjects,
-  ];
+  const subjectsWithPastPaper = isAddPastPaper
+    ? [{id: 0, name: 'Past Paper', isActive: true}, ...subjects]
+    : subjects;
 
   const handleClick = (subject: ISubject, index: number) => {
     if (isAddPastPaper && index === 0) {

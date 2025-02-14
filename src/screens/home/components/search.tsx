@@ -5,11 +5,12 @@ import {View} from 'react-native-animatable';
 import {Colors} from '../../../constants/colors';
 import {PlatformPressable} from '@react-navigation/elements';
 import {Icon} from '../../../components/icon';
-import {Filter} from 'react-native-svg';
+import {Filter} from '../../../components/svgs';
 
 export const Search = () => {
   return (
     <Input
+      placeholder="Find Course"
       style={styles.container}
       textStyle={{paddingVertical: 6, lineHeight: 21}}
       accessoryLeft={props => (

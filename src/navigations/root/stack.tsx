@@ -30,6 +30,7 @@ import {QuizResultOverviewScreen} from '../../screens/quiz/quiz.result-overview.
 import {ChapterExerciseScreen} from '../../screens/exercise/chapter-exercise.screen';
 import {AboutUsScreen} from '../../screens/about-us/about-us.screen';
 import {WebsiteContentType} from '../../interfaces/enum';
+import {LightHeader} from './headers/light-header';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -67,6 +68,10 @@ export const RootStack = () => {
         <Stack.Screen
           name={RouteNames.chapterShow}
           component={ChapterShowScreen}
+          options={{
+            headerShown: true,
+            header: props => <LightHeader {...props} />,
+          }}
         />
         <Stack.Screen
           name={RouteNames.exerciseShow}

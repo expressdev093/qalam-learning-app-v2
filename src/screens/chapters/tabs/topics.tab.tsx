@@ -9,6 +9,8 @@ import {TopicsVerticalList} from '../../topics/lists/vertical/list.vertical';
 import {QueryContainer} from '../../../components/containers';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../../navigations/root/types';
+import {View} from 'react-native';
+import {Text} from 'react-native';
 
 export const ChapterTopicTab: React.FC<
   ChapterTabScreenProps<RouteNames.chapterTopicsTab>
@@ -68,11 +70,22 @@ export const ChapterTopicTab: React.FC<
         isLoading={topicVideoState.isLoading}
         error={topicVideoState.error}
         isEmpty={topicVideos.length === 0}>
-        <TopicsVerticalList
-          onTopicItemClick={onTopicItemClick}
-          onPlayVideoClick={onPlayVideoClick}
-          topicVideos={topicVideos}
-        />
+        <View>
+          <Text
+            style={{
+              color: '#000',
+              fontSize: 16,
+              fontWeight: '600',
+              marginVertical: 5,
+            }}>
+            Choice your course
+          </Text>
+          <TopicsVerticalList
+            onTopicItemClick={onTopicItemClick}
+            onPlayVideoClick={onPlayVideoClick}
+            topicVideos={topicVideos}
+          />
+        </View>
       </QueryContainer>
     </Layout>
   );

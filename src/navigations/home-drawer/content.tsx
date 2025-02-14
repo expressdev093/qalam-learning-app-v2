@@ -43,7 +43,9 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
   };
 
   const getDrawerItemStyle = (index: number) => {
-    return state.index !== index ? {backgroundColor: 'white'} : {};
+    return state.index !== index
+      ? {backgroundColor: 'white', paddingLeft: 40}
+      : {paddingLeft: 40};
   };
 
   const handleLogout = async () => {
@@ -69,6 +71,8 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
     // }
   };
 
+  const iconColor = '#000';
+
   return (
     <Drawer
       style={[styles.drawer, {paddingBottom: bottom}]}
@@ -85,6 +89,7 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
               name="logout"
               pack="material"
               size={Sizes.drawerIconSize}
+              color={iconColor}
             />
           )}
           style={getDrawerItemStyle(-1)}
@@ -99,6 +104,7 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
             name="home"
             pack="feather"
             size={Sizes.drawerIconSize}
+            color={iconColor}
           />
         )}
         style={getDrawerItemStyle(0)}
@@ -111,6 +117,7 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
             name="user"
             pack="feather"
             size={Sizes.drawerIconSize}
+            color={iconColor}
           />
         )}
         style={getDrawerItemStyle(1)}
@@ -123,6 +130,7 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
             name="bell"
             pack="feather"
             size={Sizes.drawerIconSize}
+            color={iconColor}
           />
         )}
         style={getDrawerItemStyle(2)}
@@ -135,6 +143,7 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
             name="bookmark-minus-outline"
             size={Sizes.drawerIconSize}
             pack="material-community"
+            color={iconColor}
           />
         )}
         style={getDrawerItemStyle(3)}
@@ -147,6 +156,7 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
             name="user-plus"
             pack="feather"
             size={Sizes.drawerIconSize}
+            color={iconColor}
           />
         )}
         style={getDrawerItemStyle(4)}
@@ -159,6 +169,7 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
             name="tooltip-text-outline"
             pack="material-community"
             size={Sizes.drawerIconSize}
+            color={iconColor}
           />
         )}
         style={getDrawerItemStyle(5)}
@@ -171,6 +182,7 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
             name="help-circle"
             pack="feather"
             size={Sizes.drawerIconSize}
+            color={iconColor}
           />
         )}
         style={getDrawerItemStyle(6)}
@@ -183,6 +195,7 @@ export const HomeDrawerContent: React.FC<DrawerContentComponentProps> = ({
             name="settings"
             pack="feather"
             size={Sizes.drawerIconSize}
+            color={iconColor}
           />
         )}
         style={getDrawerItemStyle(7)}

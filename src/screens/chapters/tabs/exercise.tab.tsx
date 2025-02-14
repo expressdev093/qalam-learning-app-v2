@@ -48,10 +48,22 @@ export const ChapterExerciseTab: React.FC<
         isEmpty={exercises.length === 0}
         isLoading={isLoading}
         error={error}>
-        <ExerciseListVertical
-          exercises={exercises}
-          onExerciseItemClick={onExerciseItemClick}
-        />
+        <View>
+          <Text
+            style={{
+              color: '#000',
+              fontSize: 16,
+              fontWeight: '600',
+              marginVertical: 5,
+            }}>
+            Choice your course
+          </Text>
+
+          <ExerciseListVertical
+            exercises={exercises}
+            onExerciseItemClick={onExerciseItemClick}
+          />
+        </View>
       </QueryContainer>
     </Layout>
   );

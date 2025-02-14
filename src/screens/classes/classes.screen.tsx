@@ -6,7 +6,7 @@ import {IOnlineClass} from '../../interfaces';
 import {Colors} from '../../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {emptyImage} from '../../components/svgs';
+import {Classes, emptyImage} from '../../components/svgs';
 import {QueryContainer} from '../../components/containers';
 import {ClassesTabsNavigation} from './tabbar/top-tabbar';
 import {FocusAwareStatusBar} from '../../components/focus-aware-statusbar';
@@ -48,7 +48,7 @@ export const ClassesScreen = () => {
             </Text>
             <Text style={styles.p}>Clear Your Doubts</Text>
           </View>
-          {/* <Classes /> */}
+          <Classes />
         </View>
         <View style={styles.overlapCard}>
           <QueryContainer

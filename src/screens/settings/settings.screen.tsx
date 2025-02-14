@@ -24,8 +24,10 @@ export const SettingsScreen = () => {
   const dispatch = useAppDispatch();
   const styles = useStyleSheet(themedStyle);
 
+  const iconColor = '#000';
+
   const ForwardIcon = (props: any) => (
-    <Icon {...props} name="arrow-ios-forward" />
+    <Icon {...props} name="arrow-ios-forward" color={iconColor} />
   );
 
   const onLogout = () => {
@@ -73,10 +75,7 @@ export const SettingsScreen = () => {
 
   return (
     <Layout style={styles.container}>
-      <FocusAwareStatusBar
-        backgroundColor={theme[ThemeColorKey.backgroundBasicColor1]}
-        barStyle="dark-content"
-      />
+      <FocusAwareStatusBar backgroundColor={'#fff'} barStyle="dark-content" />
       <View style={styles.container}>
         <Text category="h5">Account</Text>
         <View style={styles.menuCard}>
@@ -86,7 +85,7 @@ export const SettingsScreen = () => {
               title="Profile"
               style={styles.menuItem}
               accessoryLeft={props => (
-                <Icon {...props} name="user" pack="feather" />
+                <Icon {...props} name="user" pack="feather" color={iconColor} />
               )}
               accessoryRight={ForwardIcon}
             />
@@ -100,6 +99,7 @@ export const SettingsScreen = () => {
                   {...props}
                   name="form-textbox-password"
                   pack="material-community"
+                  color={iconColor}
                 />
               )}
             />
@@ -113,6 +113,7 @@ export const SettingsScreen = () => {
                   {...props}
                   name="bell-outline"
                   pack="material-community"
+                  color={iconColor}
                 />
               )}
             />
@@ -131,6 +132,7 @@ export const SettingsScreen = () => {
                   {...props}
                   name="star-outline"
                   pack="material-community"
+                  color={iconColor}
                 />
               )}
               accessoryRight={ForwardIcon}
@@ -145,6 +147,7 @@ export const SettingsScreen = () => {
                   {...props}
                   name="help-circle-outline"
                   pack="material-community"
+                  color={iconColor}
                 />
               )}
             />
@@ -170,6 +173,7 @@ const themedStyle = StyleSheet.create({
   menuCard: {
     backgroundColor: 'white',
     padding: 20,
+    paddingHorizontal: 10,
     borderRadius: 20,
     marginTop: 10,
   },

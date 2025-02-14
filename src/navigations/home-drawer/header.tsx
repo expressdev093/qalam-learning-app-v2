@@ -28,9 +28,9 @@ export const HomeDrawerContentHeader: React.FC<ViewProps> = ({}) => {
 
 const themedStyles = StyleService.create({
   container: {
-    height: 250,
+    height: 200,
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     paddingLeft: 25,
   },
 });

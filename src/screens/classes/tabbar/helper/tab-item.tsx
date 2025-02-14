@@ -47,7 +47,7 @@ export const TabItem: React.FC<{
     <LinearGradient
       useAngle
       angle={90}
-      colors={isFocused ? Colors.grandientColor : ['#fff', '#fff']}
+      colors={isFocused ? ['#5651F9', '#5651F9'] : ['#fff', '#fff']}
       style={styles.tabItem}>
       <TouchableOpacity
         key={index}

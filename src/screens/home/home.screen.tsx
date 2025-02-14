@@ -7,7 +7,6 @@ import {
 import React, {Fragment, useEffect} from 'react';
 import {FlatList, StatusBar, Text, View} from 'react-native';
 import {Colors, ThemeColorKey} from '../../constants/colors';
-import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import {Search} from './components/search';
 import {IOnlineClass} from '../../interfaces';
 import {TopCard} from './components/top-card';
@@ -29,9 +28,6 @@ export const HomeScreen = () => {
   const navigation =
     useNavigation<RootStackNavigationProp<RouteNames.homeDrawer>>();
 
-  useEffect(() => {
-    changeNavigationBarColor('#ffffff', false, true);
-  }, []);
   return (
     <Layout style={styles.layout}>
       <FocusAwareStatusBar
@@ -47,9 +43,8 @@ export const HomeScreen = () => {
         ListHeaderComponent={
           <Fragment>
             <TopCard />
-            <View style={{marginTop: 20}}>
+            <View style={{marginTop: 10}}>
               <SubjectHorizontalList
-                isAddPastPaper
                 onItemClick={subject =>
                   navigation.navigate(RouteNames.subjectShow, {
                     subjectId: subject.id,
@@ -62,7 +57,7 @@ export const HomeScreen = () => {
               />
               <AppCornerHorizontalList heading="App Corner" />
               <Divider />
-              <TopPickHorizontalList heading="Top pic for you" />
+              <TopPickHorizontalList heading="Topic for you" />
               <Divider />
               <PlayQuizView />
               <ContinueStudy />

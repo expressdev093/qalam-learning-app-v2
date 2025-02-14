@@ -6,12 +6,25 @@ export const Divider = () => {
   return (
     <View
       style={{
+        position: 'relative',
         height: 4,
-        width: 100,
-        backgroundColor: '#B1B1B1',
+        width: 104,
+        backgroundColor: '#d9d9d9',
         alignSelf: 'center',
         borderRadius: 5,
         marginVertical: 15,
-      }}></View>
+      }}>
+      <View
+        style={{
+          position: 'absolute',
+          height: 4,
+          width: 52,
+          backgroundColor: '#B1B1B1',
+          alignSelf: 'center',
+          borderRadius: 5,
+          left: 0,
+        }}
+      />
+    </View>
   );
 };
